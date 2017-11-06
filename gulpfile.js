@@ -1,6 +1,7 @@
 var gulp = require("gulp");
 var concat = require("gulp-concat");
 var less = require("gulp-less");
+var clean = require("gulp-clean");
 var gutil = require("gulp-util");
 var webpackConfig = require("./webpack.config.js");
 var webpack = require("webpack");
@@ -29,8 +30,30 @@ gulp.task("build:dev_webpack", function(done){
     });
 });
 
+gulp.task("build:prod_webpack", function(done){
+    var devConfig = Object.create(webpackConfig);
+    return webpack(devConfig, function(err, stats){
+        if(err) throw gutil.PluginError("webpack_dev", err);
+        gutil.log("webpack_dev", stats.toString({
+            colors : true
+        }));
+        done();
+    });
+});
+
+gulp.task("clean", function(){
+    return gulp.src("./dist/", {read : false})
+                .pipe(clean());
+});
+
 gulp.task('watch', function(){
     gulp.watch("src/**/*.less", ["build:LESS"]);
 });
 
 gulp.task("default", ["build:LESS", "build:dev_webpack", 'watch']);
+
+gulp.task("prod", ["clean"], function(done){
+    gulp.run("build:LESS");
+    gulp.run("build:prod_webpack");
+    done();
+});
