@@ -32,6 +32,10 @@ gulp.task("build:dev_webpack", function(done){
 
 gulp.task("build:prod_webpack", function(done){
     var devConfig = Object.create(webpackConfig);
+    devConfig.plugins = devConfig.plugins.concat(
+        new webpack.optimize.UglifyJsPlugin()
+    );
+
     return webpack(devConfig, function(err, stats){
         if(err) throw gutil.PluginError("webpack_dev", err);
         gutil.log("webpack_dev", stats.toString({
