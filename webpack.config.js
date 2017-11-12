@@ -5,7 +5,7 @@ var HtmlWebpackPlugin = require("html-webpack-plugin");
 module.exports = {
     entry : {
         app : "./src/main.js",
-        lib :["react", "react-dom"]
+        lib :["react", "react-dom", "react-router"]
     },
     output : {
         path : path.resolve(__dirname, "dist"),
