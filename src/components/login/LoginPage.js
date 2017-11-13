@@ -1,4 +1,5 @@
 var React = require("react");
+var LoginAPI = require("../../api/LoginAPI");
 
 var LoginPage = React.createClass({
     getInitialState : function(){
@@ -7,7 +8,6 @@ var LoginPage = React.createClass({
         };
     },
     render : function(){
-        console.log(this.state);
         return (
         <div className="page-wrap">
             <div className = "login-page">
@@ -23,10 +23,11 @@ var LoginPage = React.createClass({
                         </div>
                     </div>):(<div className="signin">
                         <div className="form">
-                            <input type = "text" placeholder = "name"/>
-                            <input type = "password" placeholder = "password"/>
-                            <input type = "text" placeholder = "email address"/>
-                            <button className="submit"> CREATE </button>
+                            <input type = "text" placeholder = "Name" ref= "name" />
+                            <input type = "text" placeholder = "Username" ref= "username" />
+                            <input type = "password" placeholder = "Password" ref= "password" />
+                            <input type = "text" placeholder = "Key (*Required)" ref= "key" />
+                            <button className="submit" onClick={this.createNewUser}> CREATE </button>
                             <div className = "toggle-logon">
                                 <span>Already registered?</span> <span className="toggle" onClick={this.toggleLogOn}>Sign In</span>
                             </div>
@@ -45,8 +46,40 @@ var LoginPage = React.createClass({
     },
     validateLogin : function (event){
         event.stopPropagation();
-        if(this.refs.username.value == "sreez" && this.refs.password.value == "reddy"){
-            this.props.history.push('/dashboard');
+        if(!!this.refs.username.value && !!this.refs.password.value){
+            var param = {
+                user_name : this.refs.username.value,
+                password : this.refs.password.value
+            }
+            LoginAPI.validateLoginUser(param).done(function(data){
+                if(data.length == 1){
+                    this.props.history.push('/dashboard');                
+                }else if (data.length == 0){
+                    console.log("user_name or password didn't match");
+                }else{
+                    console.log("duplication found");
+                }
+            }.bind(this)).fail(function(jqXHR, textStatus, errorThrown){
+                console.log("************ error thrown", jqXHR, textStatus, errorThrown);
+            }.bind(this));
+        }
+    },
+
+    createNewUser : function(event){
+        event.stopPropagation();
+        if(!!this.refs.name.value && !!this.refs.username.value && !!this.refs.password.value && !!this.refs.key.value){
+            var param = {
+                name : this.refs.name.value,
+                user_name : this.refs.username.value,
+                password : this.refs.password.value,
+                key : this.refs.key.value
+            };
+            LoginAPI.addUserwithLogOn(param).done(function(data){
+                this.props.history.push('/dashboard');
+
+            }.bind(this)).fail(function(jqXHR, textStatus, errorThrown){
+                console.log("************ error thrown", jqXHR, textStatus, errorThrown);
+            }.bind(this));
         }
     }
 });
