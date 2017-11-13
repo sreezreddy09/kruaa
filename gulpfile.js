@@ -64,5 +64,6 @@ gulp.task("default", ["build:LESS", "build:LibFiles", "build:dev_webpack", 'watc
 gulp.task("prod", ["clean"], function(done){
     gulp.run("build:LESS");
     gulp.run("build:prod_webpack");
+    gulp.run("build:LibFiles");
     done();
 });
