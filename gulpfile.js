@@ -14,6 +14,11 @@ gulp.task("build:LESS", function(){
         .pipe(gulp.dest("./dist/"));
 });
 
+gulp.task("build:LibFiles", function(){
+    gulp.src("./lib/**/*.*")
+        .pipe(gulp.dest("./dist/lib"));
+});
+
 gulp.task("build:dev_webpack", function(done){
     var excuteCB = true;
     var devConfig = Object.create(webpackConfig);
@@ -32,6 +37,10 @@ gulp.task("build:dev_webpack", function(done){
 
 gulp.task("build:prod_webpack", function(done){
     var devConfig = Object.create(webpackConfig);
+    devConfig.plugins = devConfig.plugins.concat(
+        new webpack.optimize.UglifyJsPlugin()
+    );
+
     return webpack(devConfig, function(err, stats){
         if(err) throw gutil.PluginError("webpack_dev", err);
         gutil.log("webpack_dev", stats.toString({
@@ -50,7 +59,7 @@ gulp.task('watch', function(){
     gulp.watch("src/**/*.less", ["build:LESS"]);
 });
 
-gulp.task("default", ["build:LESS", "build:dev_webpack", 'watch']);
+gulp.task("default", ["build:LESS", "build:LibFiles", "build:dev_webpack", 'watch']);
 
 gulp.task("prod", ["clean"], function(done){
     gulp.run("build:LESS");
