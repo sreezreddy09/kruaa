@@ -38,7 +38,12 @@ gulp.task("build:dev_webpack", function(done){
 gulp.task("build:prod_webpack", function(done){
     var devConfig = Object.create(webpackConfig);
     devConfig.plugins = devConfig.plugins.concat(
-        new webpack.optimize.UglifyJsPlugin()
+        new webpack.optimize.UglifyJsPlugin(),
+        new webpack.DefinePlugin({
+			"process.env": {
+				"NODE_ENV": JSON.stringify("production")
+			}
+		})
     );
 
     return webpack(devConfig, function(err, stats){
