@@ -4,8 +4,7 @@ var LoginAPI = require("../../api/LoginAPI");
 var LoginPage = React.createClass({
     getInitialState : function(){
         return {
-            isLogin : true,
-            newUseradded : true
+            isLogin : true
         };
     },
     render : function(){
@@ -55,7 +54,7 @@ var LoginPage = React.createClass({
             }
             LoginAPI.validateLoginUser(param).done(function(data){
                 if(data.length == 1){
-                    this.props.history.push('/dashboard');                
+                    this.props.onLoginClick(data[0]);
                 }else if (data.length == 0){
                     console.log("user_name or password didn't match");
                 }else{
@@ -80,8 +79,6 @@ var LoginPage = React.createClass({
                 this.state.isLogin = !this.state.isLogin;
                 this.state.newUseradded = true;
                 this.setState({});
-                // this.props.history.push('/dashboard');
-
             }.bind(this)).fail(function(jqXHR, textStatus, errorThrown){
                 console.log("************ error thrown", jqXHR, textStatus, errorThrown);
             }.bind(this));

@@ -11,7 +11,7 @@ function userSignIn(param){
         ssl: process.env.DB_SSL
     });
     client.connect().then(function(){
-        console.log("Connected to Database and computing the queries");
+        // console.log("Connected to Database and computing the queries");
     }).catch(function(err){
         console.log("connection error", err);
     });
@@ -37,7 +37,7 @@ function createUserWithSignOn(param){
         ssl: process.env.DB_SSL
     });
     client.connect().then(function(){
-        console.log("Connected to Database and computing the queries");
+        // console.log("Connected to Database and computing the queries");
     }).catch(function(err){
         console.log("connection error", err);
     });
