@@ -2,7 +2,7 @@ import React from "react";
 import ReactDOM from "react-dom";
 import { BrowserRouter, Switch, Route } from 'react-router-dom';
 import { Provider } from "react-redux";
-import configureStore from "./stores/configureStore.js";
+import configureStore from "./stores/ConfigureStore.js";
 import LoginPageContainer  from "./components/login/loginPageContainer";
 import MainDashboard from "./components/dashboard/MainDashboard.container";
 
