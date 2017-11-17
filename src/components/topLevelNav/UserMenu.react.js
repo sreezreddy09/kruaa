@@ -1,12 +1,14 @@
 var React = require("react");
+var _ = require("lodash");
 
 var UserMenu = React.createClass({
     render : function(){
+        var user_name = (this.props.user)?this.props.user.name:"";
         return (
         <div className = "user-nav-right"> 
                 <div className="user-dropdown">
                     <i className="fa fa-user-circle-o fa-lg user-logo" aria-hidden="true"></i>
-                    <span> Srikanth Reddy</span>
+                    <span>{_.startCase(_.toLower(user_name))}</span>
                     <i className="fa fa-caret-down"></i>
                     <div className="ink-reaction"> </div>
                 </div>

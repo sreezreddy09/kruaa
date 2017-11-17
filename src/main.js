@@ -1,18 +1,21 @@
-var React = require("react");
-var ReactDOM = require('react-dom');
+import React from "react";
+import ReactDOM from "react-dom";
 import { BrowserRouter, Switch, Route } from 'react-router-dom';
+import { Provider } from "react-redux";
+import configureStore from "./stores/configureStore.js";
+import LoginPageContainer  from "./components/login/loginPageContainer";
+import MainDashboard from "./components/dashboard/MainDashboard.container";
 
-var LoginPage = require("./components/login/LoginPage");
-var MainDashboard = require("./components/dashboard/MainDashboard");
-
-
+const store = configureStore();
 window.onload = function(){
     ReactDOM.render((
-        <BrowserRouter>
-            <Switch>
-                <Route exact path = "/" component={LoginPage} />
-                <Route path = "/dashboard" component ={MainDashboard} />
-            </Switch>
-        </BrowserRouter>
+        <Provider store = {store}>
+            <BrowserRouter>
+                <Switch>
+                    <Route exact path = "/" component={LoginPageContainer} />
+                    <Route path = "/dashboard" component ={MainDashboard}/>
+                </Switch>
+            </BrowserRouter>
+        </Provider>
     ), document.getElementById("app"));
 };
