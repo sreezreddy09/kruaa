@@ -15,6 +15,7 @@ var LoginPage = React.createClass({
                     (this.state.isLogin)?(<div className="signin">
                         <div className="form">
                             {(this.state.newUseradded)?(<div className="user-added">Successfully Created. Please, Sign IN</div>):""}
+                            {(this.props.user.error)?(<div className="error">{this.props.user.error}</div>):""}
                             <input type = "text" placeholder = "username" ref="username"/>
                             <input type = "password" placeholder = "password" ref="password"/>
                             <button className="submit" onClick={this.validateLogin}> LOGIN </button>
@@ -24,6 +25,7 @@ var LoginPage = React.createClass({
                         </div>
                     </div>):(<div className="signin">
                         <div className="form">
+                            {(this.props.user.error)?(<div className="error">{this.props.user.error}</div>):""}
                             <input type = "text" placeholder = "Name" ref= "name" />
                             <input type = "text" placeholder = "Username" ref= "username" />
                             <input type = "password" placeholder = "Password" ref= "password" />
@@ -42,8 +44,8 @@ var LoginPage = React.createClass({
 
     toggleLogOn : function(event){
         event.stopPropagation();
+        this.props.toggleSignOn();
         this.state.isLogin = !this.state.isLogin;
-        this.setState({});
     },
     validateLogin : function (event){
         event.stopPropagation();
@@ -54,9 +56,10 @@ var LoginPage = React.createClass({
             }
             LoginAPI.validateLoginUser(param).done(function(data){
                 if(data.length == 1){
-                    this.props.onLoginClick(data[0]);
+                    this.props.userSigninSuccess(data[0]);
                 }else if (data.length == 0){
                     console.log("user_name or password didn't match");
+                    this.props.userSigninFailure();
                 }else{
                     console.log("duplication found");
                 }
@@ -73,14 +76,19 @@ var LoginPage = React.createClass({
                 name : this.refs.name.value,
                 user_name : this.refs.username.value,
                 password : this.refs.password.value,
-                key : this.refs.key.value
+                key : (this.refs.key.value).toLowerCase()
             };
             LoginAPI.addUserwithLogOn(param).done(function(data){
                 this.state.isLogin = !this.state.isLogin;
                 this.state.newUseradded = true;
-                this.setState({});
-            }.bind(this)).fail(function(jqXHR, textStatus, errorThrown){
-                console.log("************ error thrown", jqXHR, textStatus, errorThrown);
+                this.props.userSignonSuccess();
+            }.bind(this)).fail(function(err){
+                console.log("************ error thrown", err);
+                if(err.responseJSON.reason == "login_key"){
+                    this.props.loginKeyMismatch();
+                }else{
+                    this.props.userSignonFailure();
+                }
             }.bind(this));
         }
     }

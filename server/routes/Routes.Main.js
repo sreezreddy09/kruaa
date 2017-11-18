@@ -9,7 +9,7 @@ MainRouter.use("/auth/login", function(req, res){
         res.send(data);
     }).catch(function(err){
         console.log(err);
-        res.send(err);
+        res.status(500).send(err);
     });
 });
 
@@ -17,8 +17,8 @@ MainRouter.use("/auth/logon", function(req, res){
     dbserver.createUserWithSignOn(req.query).then(function(data){
         res.send(data);
     }).catch(function(err){
-        console.log(err);
-        res.send(err);
+        console.log("ERROR ON SIGN ON", err);
+        res.status(400).send(err);
     });
 });
 
