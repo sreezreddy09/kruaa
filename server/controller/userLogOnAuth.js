@@ -11,7 +11,7 @@ function userSignIn(param){
         ssl: process.env.DB_SSL
     });
     client.connect().then(function(){
-        console.log("Connected to Database and computing the queries");
+        // console.log("Connected to Database and computing the queries");
     }).catch(function(err){
         console.log("connection error", err);
     });
@@ -37,23 +37,22 @@ function createUserWithSignOn(param){
         ssl: process.env.DB_SSL
     });
     client.connect().then(function(){
-        console.log("Connected to Database and computing the queries");
+        // console.log("Connected to Database and computing the queries");
     }).catch(function(err){
         console.log("connection error", err);
     });
     return new Promise(function(resolve, reject){
-        if(param.key === "SREEZ"){
+        if(param.key === process.env.LOGIN_KEY){
             client.query("INSERT INTO USERINFO (NAME, USER_NAME, PASSWORD) VALUES ($1, $2, $3);", [param.name, param.user_name, param.password], function(err, res){
                 err && reject(err);
                 res && resolve(JSON.stringify(res.rows));
                 client.end();
             })
         }else{
-            reject("Key didn't match");
+            reject({reason: "login_key"});
         }
     })
 }
-
 
 module.exports = {
     userSignIn : userSignIn,
