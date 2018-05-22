@@ -16,7 +16,7 @@ function mapStateToProps (state, ownProps){
 function mapDispatchToProps (dispatch, ownProps){
     return {
         requireAuth : function(){
-            return ownProps.history.push("/");
+            // return ownProps.history.push("/");
         }
 
     };

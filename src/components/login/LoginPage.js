@@ -7,7 +7,7 @@ var LoginPage = React.createClass({
             isLogin : true
         };
     },
-    render : function(){
+    render : function(){        
         return (
         <div className="page-wrap">
             <div className = "login-page">
