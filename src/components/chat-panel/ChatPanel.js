@@ -8,16 +8,19 @@ var ChatPanel = React.createClass({
     },
 
     render : function (){
+        // <input className="input" placeholder="Type the message here" spellCheck="true"/>
+        // <div className = "action-menu"> <i className="fa fa-lg fa-paper-plane"></i></div>
         return (
             <div className="chat-container">
                 <header className="chat-header">
-                    <div className="text-primary"> Srikanth Reddy </div>
+                    <div className="text-primary"> John Doe </div>
                 </header>
-                <div className ="chat-body"> 
+                <div className ="chat-body">
                 </div>
                 <footer className ="chat-footer"> 
-                    <div className="input" contentEditable="true" spellCheck="true" ></div>
-                    <div className = "action-menu"> </div>
+                    <div className="emoji-menu"><i className= "fa fa-2x fa-plus-square" ></i></div>
+                    <input className="input" placeholder="Type the message here" spellCheck="true"/>
+                    <div className = "action-menu"> <i className="fa fa-lg fa-paper-plane"></i></div>
                 </footer>
             </div>
         )
