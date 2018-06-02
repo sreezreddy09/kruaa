@@ -8,8 +8,6 @@ var ChatPanel = React.createClass({
     },
 
     render : function (){
-        // <input className="input" placeholder="Type the message here" spellCheck="true"/>
-        // <div className = "action-menu"> <i className="fa fa-lg fa-paper-plane"></i></div>
         return (
             <div className="chat-container">
                 <header className="chat-header">

@@ -22,5 +22,28 @@ MainRouter.use("/auth/logon", function(req, res){
     });
 });
 
+MainRouter.use("/auth/contacts/search", function(req, res){
+    if(!req.query.q){
+        return res.send([]);
+    }
+    dbserver.searchUser(req.query.q).then(function(data){
+        res.send(data);
+    }).catch(function(err){
+        console.log("ERROR in searching user from DB", err);
+        res.status(400).send(err);
+    });
+});
+
+MainRouter.use("/auth/contacts", function(req, res){
+    dbserver.fetchContactsList().then(function(data){
+        res.send(data);
+    }).catch(function(err){
+        console.log("ERROR IN FETCHING CONTACTS FORM DB", err);
+        res.status(400).send(err);
+    })
+});
+
+
+
 
 module.exports = MainRouter;

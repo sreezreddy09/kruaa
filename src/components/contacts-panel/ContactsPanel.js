@@ -1,20 +1,87 @@
 var React = require("react");
+var ProgressBar = require("../progressBar/ProgressBar.react.js");
 
 var ContactsPanel = React.createClass({
     getInitialState : function (){
         return {
-
+            searchUserPanel : true
         };
     },
 
+    componentWillMount : function(){
+        this.props.fetchContactList();        
+    },
+
     render : function (){
+        var searchUserPanel = <div className="search-user-panel">
+            <header className="search-user">
+                <input className="input-box" placeholder="Search" spellCheck="false" onChange={this._searchUser} ref="searchInput"/>
+                <i className = "fa fa-search" onClick={this._searchUser}> </i>
+            </header>
+            <div className="search-user-results">
+                
+                {
+                    (this.props.user_profiles.loading)?(<ProgressBar/>):(
+                        <ul className="users">
+                            {
+                                (this.props.user_profiles.userSearchResults.length)?this.props.user_profiles.userSearchResults.map(function(user){
+                                    return <li className="user-item"> {user.name}</li>
+                                }):""
+                            }
+                        </ul>
+                    )
+                }
+            </div>
+        </div>;
         return (
             <div className ="contacts-container">
                 <div className="contact-header">
-                    <header className="text-primary"> Online Users</header>
+                    < header className = "text-primary" >
+                        < span > Recent Chats </span>
+                        < div className="add-contact" onClick={this._toggleSearchPanel}>
+                        {
+                            (!this.state.searchUserPanel)?(<i className = "fa fa-user-plus fa-lg" aria-hidden = "true" > </i>) :
+                            (<i className = "fa fa-arrow-left fa-lg" aria-hidden = "true" > </i>)
+                        }
+                        </div >
+                    </header>
                 </div>
+                {
+                    (this.state.searchUserPanel)?(searchUserPanel):
+                    (this.props.user_profiles.loading)?(<ProgressBar/>):(
+                        <div className="contacts">
+                            <ul className="contacts-list">
+                                {
+                                    (this.props.user_profiles.users.length)?(
+                                        this.props.user_profiles.users.map(function (user, index) {
+                                            return (<li className = "contact-item" key={index} >
+                                                <div className="item item-icon"></div>
+                                                <div className="item item-text">{user.name}
+                                                    <small className="item item-small"> No messages yet... </small>
+                                                </div>
+                                            </li>)
+                                        })
+                                    ): ""
+                                }
+                            </ul>
+                        </div>
+                    )
+                }
             </div>
         );
+    },
+
+    _toggleSearchPanel : function (event){
+        event.stopPropagation();
+        this.state.searchUserPanel = !this.state.searchUserPanel;
+        this.props.toggleSearchPanel();
+    },
+
+    _searchUser : function (event) {
+        event.stopPropagation();
+        let value = event.target.value;
+        this.props.searchUser(value);
+        
     }
 });
 

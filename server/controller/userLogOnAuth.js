@@ -54,7 +54,59 @@ function createUserWithSignOn(param){
     })
 }
 
+function fetchContactsList(){
+    var client = new pg.Client({
+        user: process.env.DB_USER,
+        password: process.env.DB_PASSWORD,
+        database: process.env.DB_DATABASE,
+        port: process.env.DB_PORT,
+        host: process.env.DB_HOST,
+        ssl: process.env.DB_SSL
+    });
+
+    client.connect().then(function(){
+
+    }).catch(function(err){
+        console.log("connection err", err);
+    });
+
+    return new Promise (function (resolve, reject){
+        client.query("SELECT * FROM USERINFO", function(err, res){
+            err && reject(err);
+            res && resolve(JSON.stringify(res.rows));
+            client.end();
+        })
+    })
+}
+
+function searchUser(query){    
+    var client = new pg.Client({
+        user: process.env.DB_USER,
+        password: process.env.DB_PASSWORD,
+        database: process.env.DB_DATABASE,
+        port: process.env.DB_PORT,
+        host: process.env.DB_HOST,
+        ssl: process.env.DB_SSL
+    });
+    var regex = query + '%';
+    client.connect().then(function(){
+
+    }).catch(function(err){
+        console.log("connection err", err);
+    });
+
+    return new Promise (function (resolve, reject){
+        client.query("SELECT NAME, USER_NAME FROM USERINFO WHERE LOWER(NAME) LIKE LOWER($1)", [regex],  function(err, res){
+            err && reject(err);
+            res && resolve(JSON.stringify(res.rows));
+            client.end();
+        })
+    })
+
+}
 module.exports = {
     userSignIn : userSignIn,
-    createUserWithSignOn : createUserWithSignOn
+    createUserWithSignOn : createUserWithSignOn,
+    fetchContactsList: fetchContactsList,
+    searchUser : searchUser
 }
