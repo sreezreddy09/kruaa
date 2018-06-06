@@ -4,7 +4,8 @@ var ProgressBar = require("../progressBar/ProgressBar.react.js");
 var ContactsPanel = React.createClass({
     getInitialState : function (){
         return {
-            searchUserPanel : true
+            searchUserPanel : true,
+            contact_dropdown : true 
         };
     },
 
@@ -13,6 +14,7 @@ var ContactsPanel = React.createClass({
     },
 
     render : function (){
+        debugger;
         var searchUserPanel = <div className="search-user-panel">
             <header className="search-user">
                 <input className="input-box" placeholder="Search" spellCheck="false" onChange={this._searchUser} ref="searchInput"/>
@@ -25,7 +27,10 @@ var ContactsPanel = React.createClass({
                         <ul className="users">
                             {
                                 (this.props.user_profiles.userSearchResults.length)?this.props.user_profiles.userSearchResults.map(function(user){
-                                    return <li className="user-item"> {user.name}</li>
+                                    return (<li className="user-item"> 
+                                    {user.name}
+                                    <button className="add-user">Add</button>
+                                    </li>)
                                 }):""
                             }
                         </ul>
