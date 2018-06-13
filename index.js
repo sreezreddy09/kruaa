@@ -1,18 +1,52 @@
-var express = require('express');
-var app = express();
-var port = process.env.PORT || 3000;
+const express = require('express');
+const app = express();
+const session = require("express-session");
+const uuidv4 = require("uuid/v4");
+const responseTime = require('response-time');
+const port = process.env.PORT || 3000;
+const logger = require("./server/services/logger.js");
 
-app.use("/api", require("./server/routes/Routes.Main"));
+//Disable the 'x-powered-by' header for xss attacks
+app.disable("x-powered-by");
 
 //Using the static webpacked script files
 app.use(express.static(__dirname + '/dist'));
 
+//Maintain stateless login sessions for each user
+app.use(session({
+    genid: () => {
+        return uuidv4()
+    },
+    secret: "fgfhgroiueriteghdf",
+    resave: false,
+    saveUninitialized: false,
+    name: "id",
+    cookie:{maxAge: 900000, httpOnly:true, secure: false}
+}));
+
+//Logging the access requests from the client
+app.use((req, res, next) => {
+    logger.info(`Access Logs:: ${req.method}::${req.url}::${req.session.user_id}`);
+    next();
+});
+
+//Logging the response time for each api call
+app.use(responseTime((req, res, time) => {
+    logger.info(`Response Time: ${req.method}::${req.originalUrl}::${time} ms`);
+}))
+
+//Route the api calls to Main Router
+app.use("/api", require("./server/routes/Routes.Main"));
+
+
 //Routes all the server requests to the index page
-app.use('*', function(request, response){
+app.use('*', (request, response) => {
     response.sendFile(__dirname + "/dist/index.html");
 });
 
 //App opens localhost on 3000...
-app.listen(port, function(){
-    console.log("Application listening on port 3000....");
+app.listen(port, () => {
+    logger.info("webserver", `Application listening on port ${port}....`);
 });
+
+module.exports = app;
