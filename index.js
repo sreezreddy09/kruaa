@@ -6,7 +6,7 @@ const responseTime = require('response-time');
 const port = process.env.PORT || 3000;
 const logger = require("./server/services/logger.js");
 
-//Disable the 'x-powered-by' header for xss attacks
+//Disable the 'x-powered-by' header from xss attacks
 app.disable("x-powered-by");
 
 //Using the static webpacked script files
@@ -21,7 +21,7 @@ app.use(session({
     resave: false,
     saveUninitialized: false,
     name: "id",
-    cookie:{maxAge: 900000, httpOnly:true, secure: false}
+    cookie:{maxAge: 1800000, httpOnly:true, secure: false}
 }));
 
 //Logging the access requests from the client
