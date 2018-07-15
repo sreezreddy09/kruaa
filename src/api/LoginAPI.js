@@ -27,7 +27,16 @@ function addUserwithLogOn (param){
     });
 }
 
+function fetchUserInfo (){
+    return $.ajax({
+        url : "/api/auth/fetchUser",
+        type : "GET",
+        dataType : "JSON"
+    });
+}
+
 module.exports = {
     validateLoginUser : validateLoginUser,
-    addUserwithLogOn : addUserwithLogOn
+    addUserwithLogOn : addUserwithLogOn,
+    fetchUserInfo : fetchUserInfo
 }
