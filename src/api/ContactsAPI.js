@@ -3,7 +3,7 @@ var $ = require("jquery");
 function fetchContacts (){
 	return new Promise(function(resolve, reject){
 		$.ajax({
-			url : "/api/auth/contacts",
+			url : "/api/chat-list/fetch",
 			type : "GET",
 			dataType : "JSON"
 		}).done(function(data){
@@ -20,7 +20,7 @@ function fetchContacts (){
 function searchUser(value){	
 	return new Promise(function(resolve, reject){
 		$.ajax({
-			url : "/api/auth/contacts/search?q=" + value,
+			url : "/api/users/search?q=" + value,
 			type : "GET",
 			dataType : "JSON"
 		}).done(function(data){

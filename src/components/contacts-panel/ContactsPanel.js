@@ -4,8 +4,7 @@ var ProgressBar = require("../progressBar/ProgressBar.react.js");
 var ContactsPanel = React.createClass({
     getInitialState : function (){
         return {
-            searchUserPanel : true,
-            contact_dropdown : true 
+            searchUserPanel : false
         };
     },
 
@@ -14,7 +13,6 @@ var ContactsPanel = React.createClass({
     },
 
     render : function (){
-        debugger;
         var searchUserPanel = <div className="search-user-panel">
             <header className="search-user">
                 <input className="input-box" placeholder="Search" spellCheck="false" onChange={this._searchUser} ref="searchInput"/>
@@ -26,12 +24,14 @@ var ContactsPanel = React.createClass({
                     (this.props.user_profiles.loading)?(<ProgressBar/>):(
                         <ul className="users">
                             {
-                                (this.props.user_profiles.userSearchResults.length)?this.props.user_profiles.userSearchResults.map(function(user){
-                                    return (<li className="user-item"> 
+                                (this.props.user_profiles.userSearchResults.length)?this.props.user_profiles.userSearchResults.map(function(user, index){
+                                    return (<li className="user-item" key={index}>
                                     {user.name}
-                                    <button className="add-user">Add</button>
+                                    <button className="user-action">
+                                    <span className = "action-button"> Pending </span>
+                                    </button>
                                     </li>)
-                                }):""
+                                }.bind(this)):""
                             }
                         </ul>
                     )
@@ -59,13 +59,14 @@ var ContactsPanel = React.createClass({
                                 {
                                     (this.props.user_profiles.users.length)?(
                                         this.props.user_profiles.users.map(function (user, index) {
-                                            return (<li className = "contact-item" key={index} >
+                                            return (<li className = "contact-item" onClick={this._activeChatUser.bind(this, user)} key={index} >
                                                 <div className="item item-icon"></div>
-                                                <div className="item item-text">{user.name}
+                                                <div className="item item-text">
+                                                    <span ref="userInfo">{user.name}</span>
                                                     <small className="item item-small"> No messages yet... </small>
                                                 </div>
                                             </li>)
-                                        })
+                                        }.bind(this))
                                     ): ""
                                 }
                             </ul>
@@ -79,14 +80,18 @@ var ContactsPanel = React.createClass({
     _toggleSearchPanel : function (event){
         event.stopPropagation();
         this.state.searchUserPanel = !this.state.searchUserPanel;
-        this.props.toggleSearchPanel();
+        this.setState({});
     },
 
     _searchUser : function (event) {
         event.stopPropagation();
-        let value = event.target.value;
+        let value = this.refs.searchInput.value;
         this.props.searchUser(value);
-        
+    },
+
+    _activeChatUser : function (user, event){
+        event.stopPropagation();
+        this.props.activeChatUser(user, this.props.user_profile.user_name);
     }
 });
 

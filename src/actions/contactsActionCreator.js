@@ -1,10 +1,10 @@
 export const FETCH_CONTACTS_LIST = "FETCH_CONTACTS_LIST";
 export const FETCHED_CONTACTS_LIST = "FETCHED_CONTACTS_LIST";
 export const FETCH_CONTACTS_LIST_FAILED = "FETCH_CONTACTS_LIST_FAILED";
-export const TOGGLE_SEARCH_PANEL = "TOGGLE_SEARCH_PANEL";
 export const SEARCH_USER_INITIATED = "SEARCH_USER_INITIATED";
 export const SEARCH_USER_FETCH_SUCCESSFUL = "SEARCH_USER_FETCH_SUCCESSFUL";
 export const SEARCH_USER_FETCH_FAILED = "SEARCH_USER_FETCH_FAILED";
+export const CURRENT_CHAT_PROFILE = "CURRENT_CHAT_PROFILE";
 import ContactsAPI from "../api/ContactsAPI";
 
 export function fetchContacts (){
@@ -19,12 +19,6 @@ export function fetchContacts (){
 	}
 }
 
-export function toggleSearchPanel (){
-	return {
-		type : TOGGLE_SEARCH_PANEL
-	}
-}
-
 export function searchUser (value){
 	return function (dispatch){
 		dispatch(searchUserInitiated());
@@ -36,6 +30,19 @@ export function searchUser (value){
 				console.log("Error fetched when serching the DB for user", err);
 				dispatch(searchUserFetchFailed(err));
 			})
+	}
+}
+
+export function activeChatUser (value) {
+	return function (dispatch){
+		dispatch(CurrentChatProfile(value));
+	}
+}
+
+export function current_chat_profile (data) {
+	return {
+		type : CURRENT_CHAT_PROFILE,
+		payload : data
 	}
 }
 
