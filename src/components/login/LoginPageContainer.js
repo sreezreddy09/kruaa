@@ -15,6 +15,7 @@ const mapDispatchToProps = function(dispatch, ownProps){
     return {
         userSigninSuccess : function (data){
             dispatch(user_signin_success(data));
+            sessionStorage.setItem("user", JSON.stringify(data))
             ownProps.history.push('/dashboard');
         },
         userSigninFailure : function (){

@@ -1,6 +1,8 @@
 import React from "react";
 import {connect} from "react-redux";
 import MainDashboard from "./MainDashboard";
+import LoginAPI from "../../api/LoginAPI";
+import {user_signin_success} from "../../actions/loginActionCreator";
 
 
 const MainDashboardContainer = ({user}) => (
@@ -16,7 +18,13 @@ function mapStateToProps (state, ownProps){
 function mapDispatchToProps (dispatch, ownProps){
     return {
         requireAuth : function(){
-            // return ownProps.history.push("/");
+            if(sessionStorage.getItem("user")){
+                LoginAPI.fetchUserInfo().done(function(data){
+                    dispatch(user_signin_success(data[0]));
+                }).fail(function(data){
+                    window.location.href = "/";
+                }.bind(this))
+            }
         }
 
     };

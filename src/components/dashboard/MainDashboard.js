@@ -1,6 +1,7 @@
 var React = require("react");
 import TopLevelNavContainer from "../topLevelNav/TopLevelNav.container";
 var DashboardContainer = require("../dashboardContainer/DashboardContainer.react");
+var ProgressBar = require("../progressBar/ProgressBar.react");
 
 var MainDashboard = React.createClass({
     componentWillMount : function(){
@@ -9,12 +10,16 @@ var MainDashboard = React.createClass({
         }
     },
     render : function (){
-        return (
-        <div className = "dashboard">
-            <TopLevelNavContainer />
-            <DashboardContainer />
-        </div>
-    );
+        if(this.props.user){
+            return (
+                <div className = "dashboard">
+                    <TopLevelNavContainer />
+                    <DashboardContainer />
+                </div>
+            );
+        }else{
+            return <ProgressBar />
+        }
     },
 
 });
