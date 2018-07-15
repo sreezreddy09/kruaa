@@ -3,7 +3,7 @@ var _ = require("lodash");
 
 var UserMenu = React.createClass({
     render : function(){
-        var user_name = (this.props.user)?this.props.user.name:"Srikanth Reddy";
+        var user_name = (this.props.user)?this.props.user.name:"";
         return (
         <div className = "user-nav-right"> 
                 <div className="user-dropdown">
