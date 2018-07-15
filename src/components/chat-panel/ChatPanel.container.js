@@ -1,14 +1,14 @@
 import React from "react";
 import {connect} from "react-redux";
-import ChatPanel from "../chat-panel/ChatPanel.js";
+import ChatPanel from "./ChatPanel.js";
 
-const ChatPanelContainer = () => (
-    <ChatPanel />
+const ChatPanelContainer = ({chat_profile}) => (
+    <ChatPanel chat_profile={chat_profile}/>
 );
 
 function mapStateToProps (state, ownProps){
     return {
-
+        chat_profile : state.chat_profile.user
     };
 }
 
