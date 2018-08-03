@@ -6,7 +6,7 @@ import configureStore from "./stores/ConfigureStore.js";
 import LoginPageContainer  from "./components/login/LoginPageContainer";
 import MainDashboard from "./components/dashboard/MainDashboard.container";
 
-const store = configureStore();
+export const store = configureStore();
 window.onload = function(){
     ReactDOM.render((
         <Provider store = {store}>

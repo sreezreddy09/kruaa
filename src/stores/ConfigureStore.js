@@ -1,6 +1,5 @@
 import { createStore, applyMiddleware } from "redux";
 import rootReducer  from "../reducers";
-import  createLogger  from 'redux-logger';
 import promiseMiddleware from 'redux-thunk';
 
 const configureStore = function(preloadedState){
@@ -8,8 +7,7 @@ const configureStore = function(preloadedState){
         rootReducer,
         preloadedState,
         applyMiddleware(
-            promiseMiddleware,
-            createLogger
+            promiseMiddleware
         )
     );
 }
