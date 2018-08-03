@@ -1,13 +1,14 @@
 //user table for login and user search;
 
 CREATE TABLE user_info (
-	username CHAR(20) PRIMARY KEY,
-	email_id VARCHAR(50) PRIMARY KEY,
+	user_uid UUID NOT NULL DEFAULT uuid_generate_v4(),
+	user_name CHAR(20) UNIQUE NOT NULL,
+	email_id VARCHAR(50) UNIQUE NOT NULL,
 	first_name CHAR(20) NOT NULL,
 	last_name CHAR(20) NOT NULL,
-	full_name VARCHAR(50) NOT NULL,
 	password CHAR(16) NOT NULL,
-	time_created bigint NOT NULL
+	time_created bigint NOT NULL,
+	PRIMARY KEY(user_uid, user_name, email_id)
 );
 
 
@@ -25,12 +26,12 @@ CREATE TABLE friend_requests (
 // chat_list table provides the list of chats along with user information
 
 CREATE TABLE chat_list (
-	conversation_id NOT NULL DEFAULT uuid_generate_v4(),
+	conversation_id UUID NOT NULL DEFAULT uuid_generate_v4(),
 	users_bond VARCHAR(50) UNIQUE NOT NULL,
 	last_message VARCHAR(50),
-	createdAt_time BIGINT NOT NULL,
-	updatedAt_time BIGINT,
-	deletedAt_time BIGINT,
+	created_time BIGINT NOT NULL,
+	updated_time BIGINT,
+	deleted_time BIGINT,
 	PRIMARY KEY (conversation_id, users_bond)
 );
 
