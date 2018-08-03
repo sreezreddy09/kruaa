@@ -5,14 +5,14 @@ import LoginAPI from "../../api/LoginAPI";
 import {user_signin_success} from "../../actions/loginActionCreator";
 
 
-const MainDashboardContainer = ({user}) => (
-    <MainDashboard user={user} requireAuth={requireAuth}/>
+const MainDashboardContainer = ({user_profile}) => (
+    <MainDashboard user_profile={user_profile} requireAuth={requireAuth}/>
     
 );
 
 function mapStateToProps (state, ownProps){
     return{
-        user : state.user_info.user
+        user_profile : state.user_info
     };
 }
 function mapDispatchToProps (dispatch, ownProps){

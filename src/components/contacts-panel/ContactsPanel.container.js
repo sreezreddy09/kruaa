@@ -17,8 +17,8 @@ function mapStateToProps (state, ownProps){
 
 function mapDispatchToProps(dispatch, ownProps){
     return {
-        fetchContactList : function (){
-            dispatch(fetchContacts());
+        fetchContactList : function (user){
+            dispatch(fetchContacts(user));
         },
 
         searchUser : function (value) {
@@ -27,7 +27,7 @@ function mapDispatchToProps(dispatch, ownProps){
 
         activeChatUser : function (chat_member, user) {
             dispatch(current_chat_profile(chat_member));
-            dispatch(fetch_chat_history(chat_member.user_name, user.user_name))
+            dispatch(fetch_chat_history(chat_member.conversation_id, user.user_uid));
         }
     };
 }

@@ -4,11 +4,7 @@ import ContactsPanelContainer from "../contacts-panel/ContactsPanel.container.js
 import ChatPanelContainer from "../chat-panel/ChatPanel.container.js";
 
 var DashboardContainer = React.createClass({
-    getInitialState : function(){
-        return {
-            loading : true
-        }
-    },
+    
     render : function(){
         return (
             <div className = "dashboard-container">

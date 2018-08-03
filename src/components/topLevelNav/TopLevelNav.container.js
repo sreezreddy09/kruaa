@@ -2,14 +2,14 @@ import React from "react";
 import {connect} from "react-redux";
 import TopLeveNav from "./TopLevelNav.react";
 
-const TopLevelNavContainer = ({user}) => (
-    <TopLeveNav user={user} />
+const TopLevelNavContainer = ({user_profile}) => (
+    <TopLeveNav user_profile={user_profile} />
     
 );
 
-function mapStateToProps (state, ownProps){
+function mapStateToProps (state, ownProps){    
     return{
-        user : state.user_info.user
+        user_profile : state.user_info
     };
 }
 function mapDispatchToProps (dispatch, ownProps){

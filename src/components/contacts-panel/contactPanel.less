@@ -59,7 +59,7 @@
                             color : #4CAF50;
                             background-color: rgba(0,0,0, 0.15);
                         }
-                        &:active {
+                        &.active {
                             background-color: rgba(0,0,0, 0.1);
                         }
                         .item {
@@ -82,8 +82,22 @@
                             line-height: 1.5;
                             .item-small{
                                 display: block;
+                                width : 150px;
                                 color: #7b7b7b;
+                                overflow: hidden;
+                                text-overflow: ellipsis;
                             }
+                        }
+                        .item-date {
+                            position: relative;
+                            float : right;
+                            font-family: "Roboto", sans-serif, Helvetica, Arial, sans-serif;
+                            font-size: 12px;
+                            padding-top: 9px;
+                            padding-right : 5px; 
+                            line-height: 1.5;
+                            color: #7b7b7b;
+
                         }
                     }
                 }

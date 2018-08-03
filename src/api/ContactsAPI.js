@@ -1,14 +1,12 @@
 var $ = require("jquery");
 
-function fetchContacts (){
+function fetchContacts (user){
 	return new Promise(function(resolve, reject){
 		$.ajax({
-			url : "/api/chat-list/fetch",
+			url : "/api/chat-list/fetch?user_name="+ user,
 			type : "GET",
 			dataType : "JSON"
 		}).done(function(data){
-
-			console.log("Data successfully fetched", data);
 			resolve({users : data});
 		}).fail(function(err){
 			console.log("Failed with API request", err);
@@ -24,9 +22,7 @@ function searchUser(value){
 			type : "GET",
 			dataType : "JSON"
 		}).done(function(data){
-			console.log("User Search queried successfully", data);
 			resolve({users : data});
-			
 		}).fail(function(err){
 			console.log("Failed to search User", err);
 		})

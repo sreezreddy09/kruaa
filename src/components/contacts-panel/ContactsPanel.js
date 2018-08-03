@@ -9,10 +9,10 @@ var ContactsPanel = React.createClass({
     },
 
     componentWillMount : function(){
-        this.props.fetchContactList();        
+        this.props.fetchContactList(this.props.user_profile.user_name);        
     },
 
-    render : function (){
+    render : function (){        
         var searchUserPanel = <div className="search-user-panel">
             <header className="search-user">
                 <input className="input-box" placeholder="Search" spellCheck="false" onChange={this._searchUser} ref="searchInput"/>
@@ -59,12 +59,13 @@ var ContactsPanel = React.createClass({
                                 {
                                     (this.props.user_profiles.users.length)?(
                                         this.props.user_profiles.users.map(function (user, index) {
-                                            return (<li className = "contact-item" onClick={this._activeChatUser.bind(this, user)} key={index} >
+                                            return (<li className = {"contact-item" + ((this.state.active_user == user.user_uid)?" active":"")} onClick={this._activeChatUser.bind(this, user)} key={index} >
                                                 <div className="item item-icon"></div>
                                                 <div className="item item-text">
                                                     <span ref="userInfo">{user.name}</span>
-                                                    <small className="item item-small"> No messages yet... </small>
+                                                    <small className="item item-small">{user.last_message || "No Messages Yet"} </small>
                                                 </div>
+                                                <div className="item item-date"> { user.updated_time ? (new Date(Number(user.updated_time)).toLocaleTimeString("en-US",{hour:"2-digit", minute:"2-digit"})) : ""} </div>
                                             </li>)
                                         }.bind(this))
                                     ): ""
@@ -91,7 +92,8 @@ var ContactsPanel = React.createClass({
 
     _activeChatUser : function (user, event){
         event.stopPropagation();
-        this.props.activeChatUser(user, this.props.user_profile.user_name);
+        this.props.activeChatUser(user, this.props.user_profile);
+        this.setState({active_user : user.user_uid})
     }
 });
 
