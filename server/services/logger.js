@@ -1,14 +1,26 @@
 const {createLogger, format, transports } = require("winston");
-const { combine, printf, colorize, splat, simple, prettyPrint } = format;
+const { combine, printf } = format;
 
-const util = require("util");
 
-const myFormat = printf(info => {
-	return `[${new Date().toLocaleDateString()} ${new Date().toLocaleTimeString()}] ${info.level}: ${info.message}`;
+const myFormat = printf((logEntry) => {	
+	let SPLAT = logEntry[Symbol.for('splat')];
+    let splat;
+    if( SPLAT ){
+        for(var k in SPLAT){
+            if(typeof SPLAT[k] === 'object'){
+                SPLAT[k] = JSON.stringify(SPLAT[k])
+            }
+        }
+        splat = SPLAT.join(" ");
+    }else{
+        splat ="";
+    }
+
+    return  `[${new Date().toLocaleDateString()} ${new Date().toLocaleTimeString()}] ${logEntry.level}: ${logEntry.message} ${splat}`;
 });
 
 
-const wrapper = createLogger({
+const logger = createLogger({
 	format : combine(
 		myFormat
 	),
@@ -27,28 +39,5 @@ const wrapper = createLogger({
 		})
 	]
 });
-
-function convertArgs(v){
-
-	var args = Array.prototype.slice.call(v);
-    for(var k in args){
-        if (typeof args[k] === "object"){
-            // args[k] = JSON.stringify(args[k]);
-            args[k] = util.inspect(args[k], false, null, false);
-        }
-    }
-    var str = args.join(", ");
-    return str;
-}
-
-const logger = {};
-
-logger.info = (...arguments) => {	
-	wrapper.log.apply(wrapper, ["info", convertArgs(arguments)]);
-};
-
-logger.error = (...arguments) => {
-	wrapper.log.apply(wrapper, ["error", convertArgs(arguments)]);
-};
 
 module.exports = logger;
