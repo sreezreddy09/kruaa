@@ -6,6 +6,10 @@ const responseTime = require('response-time');
 const port = process.env.PORT || 3000;
 const logger = require("./server/services/logger.js");
 
+
+const server = require("http").createServer(app);
+const io = require("./server/services/server-socket").listen(server);
+
 //Disable the 'x-powered-by' header from xss attacks
 app.disable("x-powered-by");
 
@@ -21,7 +25,7 @@ app.use(session({
     resave: false,
     saveUninitialized: false,
     name: "id",
-    cookie:{maxAge: 1800000, httpOnly:true, secure: false}
+    cookie:{maxAge: 18000000, httpOnly:true, secure: false}
 }));
 
 //Logging the access requests from the client
@@ -44,9 +48,10 @@ app.use('*', (request, response) => {
     response.sendFile(__dirname + "/dist/index.html");
 });
 
+
 //App opens localhost on 3000...
-app.listen(port, () => {
+server.listen(port, () => {
     logger.info("webserver", `Application listening on port ${port}....`);
 });
 
-module.exports = app;
+module.exports = server;
