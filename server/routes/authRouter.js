@@ -5,8 +5,8 @@ const authRouter = express.Router();
 
 authRouter.use("/login", (req, res) => {
 	userAuthController.userSignIn(req.query).then((data) => {
-        req.session["user_id"] = data[0].id;
-        res.send(data);
+        req.session["user_id"] = data.user_uid;
+        res.send([data]);
     }).catch((err) => {
         logger.error("Error in signing in the user", err);
         res.status(401).send(err);

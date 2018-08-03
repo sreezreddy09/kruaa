@@ -4,7 +4,10 @@ const chatListController = require("../controller/chatList");
 const chatListRouter = express.Router();
 
 chatListRouter.use("/fetch", (req, res) => {
-    chatListController.fetchChatList().then((data) => {
+    chatListController.fetchChatList(req.query.user_name).then((data) => {
+        data.sort((a, b) => {
+            return b.updated_time - a.updated_time;
+        })
         res.status(200).send(data);
     }).catch((err) => {
         logger.info("ERROR IN FETCHING CONTACTS FORM DB", err);
