@@ -13,6 +13,8 @@ const io = require("./server/services/server-socket").listen(server);
 //Disable the 'x-powered-by' header from xss attacks
 app.disable("x-powered-by");
 
+app.use(express.json());
+
 //Using the static webpacked script files
 app.use(express.static(__dirname + '/dist'));
 
