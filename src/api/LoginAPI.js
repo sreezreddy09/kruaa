@@ -13,17 +13,13 @@ function validateLoginUser(param){
     });
 }
 
-function addUserwithLogOn (param){
+function addUserwithLogOn (body){
     return $.ajax({
        url : "/api/auth/logon",
-       type : "GET",
+       type : "POST",
        dataType : "JSON",
-       data : {
-           name : param.name,
-           user_name : param.user_name,
-           password : param.password,
-           key : param.key
-       }
+       contentType : "application/json",
+       data : JSON.stringify(body)
     });
 }
 

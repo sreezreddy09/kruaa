@@ -4,7 +4,6 @@ export const USER_SIGNIN_FAILURE = "USER_SIGNIN_FAILURE";
 export const USER_SIGNON_SUCCESS = "USER_SIGNON_SUCCESS";
 export const USER_SIGNON_FAILURE = "USER_SIGNON_FAILURE";
 export const TOGGLE_SIGNON = "TOGGLE_SIGNON";
-export const LOGINKEY_MISMATCH = "LOGINKEY_MISMATCH";
 
 
 export function user_signin_success(user){
@@ -13,9 +12,10 @@ export function user_signin_success(user){
         payload : user
     }
 }
-export function user_signin_failure(){
+export function user_signin_failure(data){
     return {
-        type : USER_SIGNIN_FAILURE
+        type : USER_SIGNIN_FAILURE,
+        payload : data
     }
 }
 export function user_signon_success(){
@@ -23,19 +23,14 @@ export function user_signon_success(){
         type: USER_SIGNON_SUCCESS
     }
 }
-export function user_signon_failure(){
+export function user_signon_failure(data){
     return {
-        type : USER_SIGNON_FAILURE
+        type : USER_SIGNON_FAILURE,
+        payload : data
     }
 }
 export function toggle_signon (){
     return {
         type : TOGGLE_SIGNON
-    }
-}
-
-export function loginkey_mismatch (){
-    return {
-        type : LOGINKEY_MISMATCH
     }
 }

@@ -3,26 +3,26 @@ const logger = require("../services/logger");
 const userAuthController = require("../controller/userAuthentication");
 const authRouter = express.Router();
 
-authRouter.use("/login", (req, res) => {
+authRouter.get("/login", (req, res) => {
 	userAuthController.userSignIn(req.query).then((data) => {
         req.session["user_id"] = data.user_uid;
         res.send([data]);
     }).catch((err) => {
-        logger.error("Error in signing in the user", err);
+        logger.log("error", "Error in signing in the user", err);
         res.status(401).send(err);
     });
 });
 
-authRouter.use("/logon", (req, res) => {
-	userAuthController.userSignOn(req.query).then((data) => {
+authRouter.post("/logon", (req, res) => {
+	userAuthController.userSignOn(req.body).then((data) => {
         res.send(data);
     }).catch((err) => {
-        console.log("ERROR ON SIGN ON", err);
+        logger.log("error", "ERROR ON SIGN ON", err);
         res.status(400).send(err);
     });
 });
 
-authRouter.use("/fetchUser", (req, res) => {
+authRouter.get("/fetchUser", (req, res) => {
 	if(!req.session["user_id"]){
         return res.status(401).send("Session expired");
     };

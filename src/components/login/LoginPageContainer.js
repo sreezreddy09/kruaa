@@ -1,10 +1,10 @@
 import React  from "react";
 import { connect } from "react-redux";
 import LoginPage from "./LoginPage.js";
-import {user_signin_success, user_signin_failure, user_signon_success, user_signon_failure, toggle_signon, loginkey_mismatch } from '../../actions/loginActionCreator';
+import {user_signin_success, user_signin_failure, user_signon_success, user_signon_failure, toggle_signon } from '../../actions/loginActionCreator';
 
-const LoginPageContainer = ({user, userSigninSuccess, userSigninFailure, userSignonSuccess, userSignonFailure, toggleSignOn, loginKeyMismatch})=>(
-    <LoginPage user={user} userSigninSuccess={userSigninSuccess} userSigninFailure={userSigninFailure} userSignonSuccess={userSignonSuccess} userSignonFailure={userSignonFailure} toggleSignOn={toggleSignOn} loginKeyMismatch={loginKeyMismatch} />
+const LoginPageContainer = ({user, userSigninSuccess, userSigninFailure, userSignonSuccess, userSignonFailure, toggleSignOn})=>(
+    <LoginPage user={user} userSigninSuccess={userSigninSuccess} userSigninFailure={userSigninFailure} userSignonSuccess={userSignonSuccess} userSignonFailure={userSignonFailure} toggleSignOn={toggleSignOn} />
 );
 function mapStateToProps(state, ownProps){
     return {
@@ -18,20 +18,17 @@ const mapDispatchToProps = function(dispatch, ownProps){
             sessionStorage.setItem("user", JSON.stringify(data))
             ownProps.history.push('/dashboard');
         },
-        userSigninFailure : function (){
-            dispatch(user_signin_failure());
+        userSigninFailure : function (data){
+            dispatch(user_signin_failure(data));
         },
         userSignonSuccess : function(){
             dispatch(user_signon_success());
         },
         userSignonFailure : function (data){
-            dispatch(user_signon_failure());
+            dispatch(user_signon_failure(data));
         },
         toggleSignOn : function (){
             dispatch(toggle_signon());
-        },
-        loginKeyMismatch : function (){
-            dispatch(loginkey_mismatch());
         }
     }
 }
