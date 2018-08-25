@@ -9,4 +9,6 @@ MainRouter.use("/chat-list", require("./chatListRouter"));
 
 MainRouter.use("/chat-history", require("./chatHistoryRouter"));
 
+MainRouter.use("/request", require("./userRequestRouter"));
+
 module.exports = MainRouter;
