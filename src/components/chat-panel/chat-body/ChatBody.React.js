@@ -1,4 +1,5 @@
 var React = require("react");
+import {formatDate} from "../../../models/timeHelper";
 
 var ChatBody = React.createClass({
 
@@ -16,7 +17,7 @@ var ChatBody = React.createClass({
 											<div className="chat-tail"> </div>
 											<div className="chat-text-body">
 												<span>{message.message}</span>
-												<small>{(new Date(Number(message.createdat_time)).toLocaleTimeString("en-US",{hour:"2-digit", minute:"2-digit"}))}</small>
+												<small>{formatDate(message.createdat_time)}</small>
 											</div>
 										</div>
 									</li>

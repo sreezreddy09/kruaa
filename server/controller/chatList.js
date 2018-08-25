@@ -1,4 +1,5 @@
 const PostGresDriver = require("../services/postgresDriver");
+const logger = require("../services/logger");
 let FETCH_CHATS_CQL = "SELECT conversation_id, users_bond, last_message, updated_time FROM CHAT_LIST WHERE LOWER(USERS_BOND) LIKE LOWER($1);";
 let FETCH_CHAT_MEMBER_INFO_CQL = "SELECT USER_UID, FIRST_NAME, LAST_NAME FROM USER_INFO WHERE USER_NAME = $1;"
 let FETCH_RECENT_CHAT_CQL = "SELECT MESSAGE, CREATEDAT_TIME FROM MESSAGES WHERE CONVERSATION_ID = $1 ORDER BY CREATEDAT_TIME DESC LIMIT 1;";
@@ -35,7 +36,7 @@ class chatList {
 							return chat_member;
 						})
 					}).catch((err) => {
-						console.log("*********************", err);
+						logger.log("error", "Error fetching the chat list", err);
 						return err;
 					});
 				});
