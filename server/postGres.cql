@@ -1,12 +1,12 @@
 //user table for login and user search;
 
-CREATE TABLE user_info (
+CREATE TABLE userinfo (
 	user_uid UUID NOT NULL DEFAULT uuid_generate_v4(),
-	user_name CHAR(20) UNIQUE NOT NULL,
+	user_name VARCHAR(50) UNIQUE NOT NULL,
 	email_id VARCHAR(50) UNIQUE NOT NULL,
-	first_name CHAR(20) NOT NULL,
-	last_name CHAR(20) NOT NULL,
-	password CHAR(16) NOT NULL,
+	first_name VARCHAR(20) NOT NULL,
+	last_name VARCHAR(20) NOT NULL,
+	password VARCHAR(50) NOT NULL,
 	time_created bigint NOT NULL,
 	PRIMARY KEY(user_uid, user_name, email_id)
 );
@@ -15,11 +15,11 @@ CREATE TABLE user_info (
 // request table that stores the friend request sent b/w users and maintain their status
 
 CREATE TABLE friend_requests (
-	request_id NOT NULL DEFAULT uuid_generate_v4(),
+	request_id UUID NOT NULL DEFAULT uuid_generate_v4(),
 	users_bond VARCHAR(50) UNIQUE NOT NULL,
-	request_status CHAR(16) NOT NULL,
+	request_status VARCHAR(50) NOT NULL,
 	status_time BIGINT NOT NULL,
-	comments VARCHAR
+	comments VARCHAR(50),
 	PRIMARY KEY(request_id, users_bond)
 );
 
