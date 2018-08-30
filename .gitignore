@@ -6,9 +6,13 @@ npm-debug.log
 *.env
 *.dev
 .DS_Store
+.vscode
+package-lock.json
 dist/
 
 # Docker
 Dockerfile
 docker-compose.yml
+
+server/logs/
  

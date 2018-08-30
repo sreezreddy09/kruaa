@@ -1,1 +1,1 @@
-React With Node Js Application
+Chat Application using Node js, React and Redux.

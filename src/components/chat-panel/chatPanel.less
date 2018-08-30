@@ -1,0 +1,75 @@
+.dashboard {
+    .dashboard-container {
+        .chat-container {
+            position: fixed;
+            top : 45px;
+            left : 22.5%;
+            width : 55%;
+            height : 100%;
+            background-color: rgba(0, 0, 0, 0.1);
+            .chat-header {
+                height: 57px;
+                color : #4CAF50;
+                background-color: rgba(0,0,0, 0.05);
+                border-bottom: 1px solid rgba(0, 0, 0, 0.2);
+                border-left: 1px solid rgba(0, 0, 0, 0.2);
+                border-right: 1px solid rgba(0, 0, 0, 0.2);
+                .text-primary {
+                    font-family: "FontAwesome", sans-serif;
+                    font-weight: 500;
+                    font-size: 18px;
+                    line-height: 1.846153846;
+                    text-align: center;
+                    padding: 10px;
+                }
+            }
+            .chat-body {
+                position : absolute;
+                bottom: 118px;
+                top : 58px;
+                width : 100%;
+            }
+            .chat-footer {
+                position: fixed;
+                bottom: 0px;
+                height : 60px;
+                width: 55%;
+                background-color:  rgba(0, 0, 0, 0.1);
+                .emoji-menu {
+                    position: relative;
+                    display: inline-block;
+                    top: 7px;
+                    width: 28px;
+                    height: 32px;
+                    margin: 10px 10px 10px 15px;
+                    color : #4CAF50;
+                    cursor : pointer;
+                }
+                .input {
+                    display: inline-block;
+                    width: 83%;
+                    max-height: 20px;
+                    margin: 10px;
+                    padding: 5px;
+                    font-family: "Roboto", sans-serif, Helvetica, Arial, sans-serif;
+                    font-size: 14px;
+                    font-weight: 200;
+                    line-height: 1.5;
+                    background-color: white;
+                    border-radius: 5px;
+                    border : 0;
+                    outline: 0;
+                    cursor: text;
+                }
+                .action-menu {
+                    display: inline-block;
+                    width: 22px;
+                    height: 16px;
+                    margin: 10px;
+                    color : #4CAF50;
+                    cursor: pointer;
+                }
+            }
+        }
+    }
+}

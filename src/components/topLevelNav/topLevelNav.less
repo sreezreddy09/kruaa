@@ -1,15 +1,20 @@
 
 body {
+    margin: 0;
+    overflow : hidden;
+    user-select: none;
     .dashboard {
         .top-level-nav {
+            position : fixed;
             top : 0px;
             left: 0px;
             height : 45px;
-            position : fixed;
-            color : #fff;
-            background: linear-gradient(to left, #76b852, #8DC26F);
             width : 100%;
-            padding : 0px 12px 6px 0px;
+            color : #4CAF50;
+            background: rgb(255, 255, 255);
+            border-bottom : 2px solid #4CAF50;
+            z-index: 1;
+            // padding : 0px 12px 6px 0px;
             .user-nav-right {
                 // display: inline-block;
                 font-family: "FontAwesome", sans-serif;

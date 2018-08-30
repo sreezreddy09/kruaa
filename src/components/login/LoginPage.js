@@ -7,7 +7,7 @@ var LoginPage = React.createClass({
             isLogin : true
         };
     },
-    render : function(){
+    render : function(){        
         return (
         <div className="page-wrap">
             <div className = "login-page">
@@ -26,8 +26,10 @@ var LoginPage = React.createClass({
                     </div>):(<div className="signin">
                         <div className="form">
                             {(this.props.user.error)?(<div className="error">{this.props.user.error}</div>):""}
-                            <input type = "text" placeholder = "Name" ref= "name" />
                             <input type = "text" placeholder = "Username" ref= "username" />
+                            <input type = "text" placeholder = "First Name" ref= "fname" />
+                            <input type = "text" placeholder = "Last Name" ref= "lname" />
+                            <input type = "text" placeholder = "Email" ref= "email" />
                             <input type = "password" placeholder = "Password" ref= "password" />
                             <input type = "text" placeholder = "Key (*Contact Admin)" ref= "key" />
                             <button className="submit" onClick={this.createNewUser}> CREATE </button>
@@ -49,46 +51,37 @@ var LoginPage = React.createClass({
     },
     validateLogin : function (event){
         event.stopPropagation();
-        if(!!this.refs.username.value && !!this.refs.password.value){
+        if(this.refs.username.value && this.refs.password.value){
             var param = {
                 user_name : this.refs.username.value,
                 password : this.refs.password.value
             }
             LoginAPI.validateLoginUser(param).done(function(data){
-                if(data.length == 1){
-                    this.props.userSigninSuccess(data[0]);
-                }else if (data.length == 0){
-                    console.log("user_name or password didn't match");
-                    this.props.userSigninFailure();
-                }else{
-                    console.log("duplication found");
-                }
-            }.bind(this)).fail(function(jqXHR, textStatus, errorThrown){
-                console.log("************ error thrown", jqXHR, textStatus, errorThrown);
+                this.props.userSigninSuccess(data[0]);
+            }.bind(this)).fail(function(err){
+                console.log("ERROR in validating login user", err.responseJSON);
+                this.props.userSigninFailure(err.responseJSON.reason);
             }.bind(this));
         }
     },
 
     createNewUser : function(event){
         event.stopPropagation();
-        if(!!this.refs.name.value && !!this.refs.username.value && !!this.refs.password.value && !!this.refs.key.value){
+        if(this.refs.fname.value && this.refs.lname.value && this.refs.email.value && this.refs.username.value && this.refs.password.value && this.refs.key.value){
             var param = {
-                name : this.refs.name.value,
+                first_name : this.refs.fname.value,
+                last_name : this.refs.lname.value,
                 user_name : this.refs.username.value,
+                email : this.refs.email.value,
                 password : this.refs.password.value,
                 key : (this.refs.key.value).toLowerCase()
             };
-            LoginAPI.addUserwithLogOn(param).done(function(data){
+            LoginAPI.addUserwithLogOn(param).done(function(){
                 this.state.isLogin = !this.state.isLogin;
                 this.state.newUseradded = true;
                 this.props.userSignonSuccess();
             }.bind(this)).fail(function(err){
-                console.log("************ error thrown", err);
-                if(err.responseJSON.reason == "login_key"){
-                    this.props.loginKeyMismatch();
-                }else{
-                    this.props.userSignonFailure();
-                }
+                this.props.userSignonFailure(err.responseJSON.reason);
             }.bind(this));
         }
     }

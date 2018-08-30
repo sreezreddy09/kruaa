@@ -1,0 +1,118 @@
+.chat-body-container {
+	height : 100%;
+	display: flex;
+	flex-direction: column-reverse;
+	overflow: scroll;
+	.chat-flex{
+		flex: 0 0 auto;
+	}
+	.list-chats{
+		padding : 0;
+		margin : 0;
+		list-style: none;
+		flex : 0 1 auto;
+		user-select: text;
+		.chat-right {
+			.chat{
+				position : relative;
+				min-height : 40px;
+				margin : 6px;
+				padding : 0 40px;
+				text-align: right;
+				.chat-tail {
+					// content: "";
+					// position: relative;
+					// float: right;
+					// clear: both;
+					// right: -11px;
+					// top: 26px;
+					// height: 0;
+					// border: 22px solid transparent;
+					// border-bottom-color: rgb(143, 238, 146);
+					// border-top: 0;
+					// border-left: 0;
+					// margin-left: -11px;
+					// margin-top: -22px;
+					// transform: rotate(90deg);
+
+				}
+				.chat-text-body {
+					position : relative;
+					float: right;
+					clear : both;
+					padding : 6px;
+					margin : 4px;
+					text-align: left;
+					font-family: "Roboto", sans-serif, Helvetica, Arial, sans-serif;
+					font-size: 13px;
+					background-color: rgb(143, 238, 146);
+					// border-radius: 5px;
+					color: black;
+					max-width : 350px;
+					word-wrap: normal;
+					span {
+						display: block;
+						padding: 6px;
+					}
+					small {
+						padding : 2px 6px;
+						display: block;
+						float : right;
+						color: #7b7b7b;
+					}
+				}
+			}
+		}
+		.chat-left{
+			.chat{
+				position : relative;
+				min-height : 40px;
+				margin : 6px;
+				padding : 0 40px;
+				text-align: left;
+				.chat-tail {
+					// content: "";
+					// position: relative;
+					// float: left;
+					// clear: both;
+					// left: 0px;
+					// top: 26px;
+					// height: 0;
+					// border: 22px solid transparent;
+					// border-bottom-color: aliceblue;
+					// border-top: 0;
+					// border-left: 0;
+					// margin-left: -11px;
+					// margin-top: -22px;
+					// transform: rotate(180deg);
+				}
+				.chat-text-body {
+					position: relative;
+					float: left;
+					clear: both;
+					padding: 6px;
+					margin: 4px;
+					font-family: "Roboto", sans-serif, Helvetica, Arial, sans-serif;
+					font-size: 13px;
+					background-color: aliceblue;
+					color: black;
+					max-width : 350px;
+					.chat-head{
+						color : #6585ff;
+						font-size: 12px;
+					}
+					span {
+						display: block;
+						padding: 6px;
+					}
+					small {
+						padding : 2px 6px; 
+						display: block;
+						float : left;
+						color: #7b7b7b;
+					}
+				}
+			}
+		}
+	}
+}

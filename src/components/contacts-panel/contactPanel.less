@@ -1,0 +1,201 @@
+.dashboard {
+    .dashboard-container {
+        .contacts-container {
+            position : absolute;
+            top: 47px;
+            left : 0px;
+            width : 22.5%;
+            height : 100%;
+            .contact-header{
+                height: 55px;
+                color : #4CAF50;
+                border-bottom : 1px solid rgba(0, 0, 0, 0.2);
+                background-color: rgba(0,0,0, 0.15);
+                .text-primary {
+                    font-family: "FontAwesome", sans-serif;
+                    font-weight: 500;
+                    font-size: 16px;
+                    line-height: 1.846153846;
+                    padding: 0.5em 0.5em 0.5em 3em;
+                }
+                .add-contact {
+                    float: right;
+                    height : 30px;
+                    width : 30px;
+                    border-radius: 50%;
+                    user-select : none;
+                    cursor: pointer;
+                    > i {
+                        position: relative;
+                        left: 2.7px;
+                        top: 0px;
+                    }
+                    &:hover {
+                        // background-color: #4CAF50;
+                        color: rgb(31, 95, 1);
+                    }
+                }
+            }
+            .loader {
+                left :30%;
+            }
+            .contacts{
+                position: absolute;
+                top : 55px;
+                bottom: 47px;
+                width : 100%;
+                // max-height: 100%;
+                overflow: scroll;
+                scroll-behavior: smooth;
+                .contacts-list{
+                    margin: 0;
+                    padding: 0;
+                    .contact-item {
+                        height : 60px;
+                        list-style: none;
+                        color : #313534;
+                        border-bottom :1px solid rgba(0, 0, 0, 0.2);
+                        &:hover{
+                            color : #4CAF50;
+                            background-color: rgba(0,0,0, 0.15);
+                        }
+                        &.active {
+                            background-color: rgba(0,0,0, 0.1);
+                        }
+                        .item {
+                            display: inline-block;
+                        }
+                        .item-icon {
+                            display: inline-block;
+                            height: 50px;
+                            width: 50px;
+                            margin : 5px;
+                            background-color: #4CAF50;
+                            border-radius: 55%;
+                        }
+                        .item-text {
+                            position: relative;
+                            top: -15px;
+                            font-family: "Roboto", sans-serif, Helvetica, Arial, sans-serif;
+                            font-size: 14px;
+                            padding: 0 10px;
+                            line-height: 1.5;
+                            width : 140px;
+                            overflow: hidden;
+                            text-overflow: clip;
+                            white-space: nowrap;
+                            .item-small{
+                                display: block;
+                                width : 150px;
+                                color: #7b7b7b;
+                                overflow: hidden;
+                                text-overflow: ellipsis;
+                            }
+                        }
+                        .item-date {
+                            position: relative;
+                            float : right;
+                            font-family: "Roboto", sans-serif, Helvetica, Arial, sans-serif;
+                            font-size: 12px;
+                            padding-top: 9px;
+                            padding-right : 5px; 
+                            line-height: 1.5;
+                            color: #7b7b7b;
+
+                        }
+                    }
+                }
+            }
+            .search-user-panel {
+                position: absolute;
+                top : 55px;
+                width: 100%;
+                height : calc(100vh - 12px);
+                background: #4CAF50;
+                -webkit-animation : search-slide-out 2s linear;
+                animation : search-slide-out 0.4s linear;
+                .search-user {
+                    position: absolute;
+                    display : inline-block;
+                    width: 80%;
+                    height : 30px;
+                    top: 25px;
+                    margin-left : 28px;
+                    border-radius: 25px;
+                    background-color: white;
+                    > input {
+                        width : 60%;
+                        padding: 7px;
+                        font-size: 14px;
+                        font-family: "Roboto", sans-serif, Helvetica, Arial, sans-serif;
+                        outline: 0;
+                        margin : 0 0 0 10px;
+                        background: transparent;
+                        border : 0px transparent;
+                    }
+                    > i {
+                        float: right;
+                        // vertical-align: middle;
+                        color : #4CAF50;
+                        padding: 7px 9px;
+                        border-left: 1px solid #bdbebe;
+                        cursor: pointer;
+                    }
+                }
+                .search-user-results {
+                    position: relative;
+                    display: block;
+                    top : 70px;
+                    .loader{
+                        span{
+                            background: white;
+                        }
+                    }
+                    .users {
+                        display : grid;
+                        margin: 0 auto;
+                        padding: 0;
+                        width: 80%;
+                        .user-item {
+                            box-sizing: border-box;
+                            position: relative;
+                            width: 100%;
+                            height : 40px;
+                            margin: 5px auto;
+                            padding-top: 10px;
+                            padding-left: 15px;
+                            background-color:white;
+                            border-bottom: 1px solid #313534;
+                            border-radius : 5px;
+                            list-style: none;
+                            font-size: 12px;
+                            font-family: "Roboto", sans-serif, Helvetica, Arial, sans-serif;
+                            z-index: 1;
+                            .user-action {
+                                color: #4CAF50;
+                                float: right;
+                                height: 20px;
+                                margin-right: 15px;
+                                font-weight: 300;
+                                background-color: transparent;
+                                border : 1px solid #4CAF50;
+                                border-radius : 4px;
+                                outline : 0;
+                                cursor : pointer;
+                            }
+                            
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
+
+@keyframes search-slide-out {
+    0%      {left : -100%}
+    25%     {left : -75%}
+    50%     {left : -50%}
+    75%     {left : -25%}
+    100%    {left : 0%}
+}
