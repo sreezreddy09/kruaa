@@ -16,8 +16,8 @@ var LoginPage = React.createClass({
                         <div className="form">
                             {(this.state.newUseradded)?(<div className="user-added">Successfully Created. Please, Sign IN</div>):""}
                             {(this.props.user.error)?(<div className="error">{this.props.user.error}</div>):""}
-                            <input type = "text" placeholder = "username" ref="username"/>
-                            <input type = "password" placeholder = "password" ref="password"/>
+                            <input type = "text" placeholder = "Username" ref="username"/>
+                            <input type = "password" placeholder = "Password" ref="password" />
                             <button className="submit" onClick={this.validateLogin}> LOGIN </button>
                             <div className = "toggle-logon">
                                 <span>Not registered?</span> <span className="toggle" onClick={this.toggleLogOn}>Create an account</span>
@@ -44,8 +44,18 @@ var LoginPage = React.createClass({
         );
     },
 
+    clearInputs : function () {
+        if(this.refs.fname) this.refs.fname.value= "";
+        if(this.refs.lname) this.refs.lname.value = "";
+        if(this.refs.email) this.refs.email.value = "";
+        if(this.refs.username) this.refs.username.value = "";
+        if(this.refs.password) this.refs.password.value = "";
+        if(this.refs.key) this.refs.key.value = "";
+    },
+
     toggleLogOn : function(event){
         event.stopPropagation();
+        this.clearInputs();
         this.props.toggleSignOn();
         this.state.isLogin = !this.state.isLogin;
     },
@@ -79,6 +89,7 @@ var LoginPage = React.createClass({
             LoginAPI.addUserwithLogOn(param).done(function(){
                 this.state.isLogin = !this.state.isLogin;
                 this.state.newUseradded = true;
+                this.clearInputs();
                 this.props.userSignonSuccess();
             }.bind(this)).fail(function(err){
                 this.props.userSignonFailure(err.responseJSON.reason);
