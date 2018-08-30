@@ -23,7 +23,7 @@ var NotificationPanel = React.createClass({
 								(this.props.user_approvals.approvals.length)?(this.props.user_approvals.approvals.map((user, index) => {
 									return (
 										<CSSTransition key={index} timeout={500} classNames="fade" >
-											<li className= "user-item" key= {index} >
+										<li className= "user-item" key= {index} >
 												{user.name}
 												<div className="action-buttons">
 													<div className="accept-button" onClick={this._updateApprovalStatus.bind(this, user, true)}>ACCEPT</div>

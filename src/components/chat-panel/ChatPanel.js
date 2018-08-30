@@ -22,9 +22,9 @@ var ChatPanel = React.createClass({
                             <ChatBodyContainer/>
                         </div>
                         <footer className ="chat-footer"> 
-                            <div className="emoji-menu"><i className= "fa fa-2x fa-plus-square" ></i></div>
-                            <input className="input" placeholder="Type the message here" spellCheck="true" onKeyDown={this._sendMessage} ref="inputMessage"/>
-                            <div className = "action-menu"> <i className="fa fa-lg fa-paper-plane"></i></div>
+                            <div className ="emoji-menu"><i className = "fa fa-2x fa-plus-square" ></i></div>
+                            <input className ="input" placeholder ="Type the message here" spellCheck="true" onKeyDown={this._sendMessage} ref = "inputMessage"/>
+                            <div className = "action-menu"> <i className = "fa fa-lg fa-paper-plane"></i></div>
                         </footer>
                     </div>
                 ):(

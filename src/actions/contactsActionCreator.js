@@ -10,13 +10,15 @@ export const ADD_USER_REQUEST_SUCCESSFUL = "ADD_USER_REQUEST_SUCCESSFUL";
 export const CLEAR_SEARCH_RESULTS = "CLEAR_SEARCH_RESULTS";
 
 import ContactsAPI from "../api/ContactsAPI";
+import {sendFriendRequestToSocket, joinGroupChatRooms} from "../models/client-socket";
 
 export function fetchContacts (user){
 	return function (dispatch) {
 		dispatch(fetchContactsRequestSent());
 		return ContactsAPI.fetchContacts(user)
 			.then(function(data){
-				console.log("chat list", data);
+				let rooms = data.users.filter((d) => d.group_name);
+				joinGroupChatRooms(rooms);
 				dispatch(fetchContactsRequestReceived(data))
 			}, function(err){
 				dispatch(fetchContactsRequestFailed(err));
@@ -41,6 +43,7 @@ export function updateUserRequest (chat_member, user){
 	return function(dispatch){
 		return ContactsAPI.addUserRequest(chat_member, user)
 			.then(function (data){
+				sendFriendRequestToSocket(chat_member.user_uid, {user_uid : user.user_uid, name : user.name});
 				if(data.status){
 					chat_member.status = "pending";
 					dispatch(addUserRequestSuccessful());

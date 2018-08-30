@@ -24,6 +24,10 @@ module.exports.listen = (app) => {
 			socket.to(data.user).emit("chat profile", data.info);
 		});
 
+		socket.on("friend request", (data) => {
+			socket.to(data.user).emit("friend request", data.user_info);
+		})
+
 		socket.on("disconnect", (reason) => {
 			logger.log("info", "socket disconnected", reason);
 		});

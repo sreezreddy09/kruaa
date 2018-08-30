@@ -1,6 +1,6 @@
 let USER_LOGIN_CQL = "SELECT * FROM USER_INFO WHERE USER_NAME = $1;"; 
 let USER_FETCH_CQL = "SELECT * FROM USER_INFO WHERE user_uid = $1;";
-let USER_SIGNON_CQL = "INSERT INTO USERINFO (user_name, email_id, first_name, last_name, password, time_created) VALUES ($1, $2, $3, $4, $5, $6);";
+let USER_SIGNON_CQL = "INSERT INTO USER_INFO (user_name, email_id, first_name, last_name, password, time_created) VALUES ($1, $2, $3, $4, $5, $6);";
 
 const bcrypt = require("bcrypt");
 const PostGresDriver = require("../services/postgresDriver");
@@ -18,7 +18,7 @@ class UserAuth {
         return this.PostGresDriver.executeQuery({cql : USER_LOGIN_CQL, keys : [param.user_name]})
             .then((data) => {
                 if(!data.length) throw {reason : "user_name didn't match"};
-                // if(!bcrypt.compareSync(param.password, data[0]["password"])) throw {reason : "Password mismatch"};
+                if(!bcrypt.compareSync(param.password, data[0]["password"])) throw {reason : "Password mismatch"};
                 let user_record = {
                     user_uid : data[0]["user_uid"],
                     user_name : data[0]["user_name"],

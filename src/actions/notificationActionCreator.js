@@ -6,7 +6,6 @@ import ContactsAPI from "../api/ContactsAPI";
  import {sendChatInfoToSocket} from "../models/client-socket";
 
 export function updateApprovalStatus (user, user_name, approve, approvalList){
-	debugger;
 	return function (dispatch){
 		return ContactsAPI.updateApprovalStatus(user.user_uid, user_name, approve)
 		.then(function(data){
@@ -22,7 +21,7 @@ export function updateApprovalStatus (user, user_name, approve, approvalList){
 	}
 }
 
-function UpdateApprovalStatusSuccessful (approvals){
+export function UpdateApprovalStatusSuccessful (approvals){
 	return {
 		type : UPDATE_APPROVAL_STATUS_SUCCESSFULL,
 		payload : approvals
