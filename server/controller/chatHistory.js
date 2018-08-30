@@ -1,6 +1,6 @@
 const PostGresDriver = require("../services/postgresDriver");
 const logger = require("../services/logger");
-const FETCH_CHAT_HSTORY_CQL = "SELECT conversation_id, sender_id, message_type, message, createdat_time FROM messages WHERE conversation_id = $1;";
+const FETCH_CHAT_HSTORY_CQL = "SELECT conversation_id, sender_id, message_type, message, createdat_time FROM messages WHERE conversation_id = $1 ORDER BY CREATEDAT_TIME ASC;";
 const APPEND_MSG_TO_HISTORY_CQL = "INSERT INTO messages (conversation_id, sender_id, message_type, message, createdat_time) VALUES ($1, $2, $3, $4, $5);";
 
 class chatHistory{
