@@ -5,7 +5,6 @@ var ChatBody = React.createClass({
 
 	render : function(){
 		let sender;
-		debugger;
 		return (
 			<div className="chat-body-container">
 				<div className="chat-flex"> </div>

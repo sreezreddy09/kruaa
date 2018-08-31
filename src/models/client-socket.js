@@ -31,7 +31,7 @@ export function joinGroupChatRooms(rooms){
 export function sendChatInfoToSocket (user_uid, chat_info){
 	let chatProfiles = [chat_info].concat(store.getState().user_profiles.users);
 	store.dispatch(update_user_profiles(chatProfiles));
-	let profile = {...chat_info, name : store.getState().user_info.user.name}
+	let profile = {...chat_info, name : store.getState().user_info.user.name, user_uid :store.getState().user_info.user.user_uid}
 	socket.emit("chat profile", {
 		user : user_uid,
 		info : profile
