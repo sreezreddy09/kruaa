@@ -8,7 +8,8 @@
             height : 100%;
             .contact-header{
                 height: 55px;
-                color : #4CAF50;
+                color : #666565;
+                font-weight: 800;
                 border-bottom : 1px solid rgba(0, 0, 0, 0.2);
                 background-color: rgba(0,0,0, 0.15);
                 .text-primary {
@@ -16,7 +17,7 @@
                     font-weight: 500;
                     font-size: 16px;
                     line-height: 1.846153846;
-                    padding: 0.5em 0.5em 0.5em 3em;
+                    padding: 0.75em 0.5em 0.5em 5em;
                 }
                 .add-contact {
                     float: right;
@@ -31,8 +32,7 @@
                         top: 0px;
                     }
                     &:hover {
-                        // background-color: #4CAF50;
-                        color: rgb(31, 95, 1);
+                        color:#6588E6;
                     }
                 }
             }
@@ -54,13 +54,27 @@
                         height : 60px;
                         list-style: none;
                         color : #313534;
+                        font-weight: 500;
                         border-bottom :1px solid rgba(0, 0, 0, 0.2);
                         &:hover{
-                            color : #4CAF50;
+                            color : #6588E6;
                             background-color: rgba(0,0,0, 0.15);
                         }
                         &.active {
-                            background-color: rgba(0,0,0, 0.1);
+                            background-color: #6588E6;
+                            color: white;
+                            .item-icon{
+                                background-color: white;
+                            }
+                            .item-text{
+                                .item-small{
+                                    color: white;
+                                }
+                            }
+                            .item-date {
+                                color : white;
+                            }
+
                         }
                         .item {
                             display: inline-block;
@@ -70,7 +84,7 @@
                             height: 50px;
                             width: 50px;
                             margin : 5px;
-                            background-color: #4CAF50;
+                            background-color: #6588E6;
                             border-radius: 55%;
                         }
                         .item-text {
@@ -111,7 +125,7 @@
                 top : 55px;
                 width: 100%;
                 height : calc(100vh - 12px);
-                background: #4CAF50;
+                background: #6588E6;
                 -webkit-animation : search-slide-out 2s linear;
                 animation : search-slide-out 0.4s linear;
                 .search-user {
@@ -136,7 +150,7 @@
                     > i {
                         float: right;
                         // vertical-align: middle;
-                        color : #4CAF50;
+                        color : #6588E6;
                         padding: 7px 9px;
                         border-left: 1px solid #bdbebe;
                         cursor: pointer;
@@ -172,13 +186,13 @@
                             font-family: "Roboto", sans-serif, Helvetica, Arial, sans-serif;
                             z-index: 1;
                             .user-action {
-                                color: #4CAF50;
+                                color: #6588E6;
                                 float: right;
                                 height: 20px;
                                 margin-right: 15px;
                                 font-weight: 300;
                                 background-color: transparent;
-                                border : 1px solid #4CAF50;
+                                border : 1px solid #6588E6;
                                 border-radius : 4px;
                                 outline : 0;
                                 cursor : pointer;
