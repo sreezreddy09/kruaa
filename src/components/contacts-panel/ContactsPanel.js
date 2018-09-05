@@ -13,7 +13,7 @@ var ContactsPanel = React.createClass({
         this.props.fetchContactList(this.props.user_profile.user_name);        
     },
 
-    render : function (){        
+    render : function (){ 
         var searchUserPanel = <div className="search-user-panel">
             <header className="search-user">
                 <input className="input-box" placeholder="Search" spellCheck="false" onChange={this._searchUser} ref="searchInput"/>
@@ -66,7 +66,10 @@ var ContactsPanel = React.createClass({
                                                     <span ref="userInfo" title = {user.name} >{user.name}</span>
                                                     <small className="item item-small">{user.last_message || "No Messages Yet"} </small>
                                                 </div>
-                                                <div className="item item-date"> { user.updated_time ? (formatDate(user.updated_time )) : ""} </div>
+                                                <div className="item item-date"> { user.updated_time ? (formatDate(user.updated_time )) : ""} 
+                                                    <div className = "item item-unread">  {user.unread_count && this.state.active_user !== user.user_uid ? user.unread_count : ""}
+                                                    </div>
+                                                </div>
                                             </li>)
                                         }.bind(this))
                                     ): ""
@@ -98,9 +101,14 @@ var ContactsPanel = React.createClass({
     },
 
     _activeChatUser : function (user, event){
-        event.stopPropagation();
-        this.props.activeChatUser(user, this.props.user_profile);
-        this.setState({active_user : user.user_uid})
+        event.stopPropagation();        
+        this.props.activeChatUser(user, this.props.user_profile, !!user.group_name);
+        this.props.user_profiles.users.map((profile) => {
+            if(profile.conversation_id === user.conversation_id){
+                profile.unread_count = 0;
+            }
+        });
+        this.setState({active_user : user.user_uid});
     },
 
     _updateUserRequest : function (user, event){
