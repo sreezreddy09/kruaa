@@ -18,7 +18,7 @@ class UserAuth {
         return this.PostGresDriver.executeQuery({cql : USER_LOGIN_CQL, keys : [param.user_name]})
             .then((data) => {
                 if(!data.length) throw {reason : "user_name didn't match"};
-                // if(!bcrypt.compareSync(param.password, data[0]["password"])) throw {reason : "Password mismatch"};
+                if(!bcrypt.compareSync(param.password, data[0]["password"])) throw {reason : "Password mismatch"};
                 let user_record = {
                     user_uid : data[0]["user_uid"],
                     user_name : data[0]["user_name"],
