@@ -38,6 +38,14 @@ export function sendChatInfoToSocket (user_uid, chat_info){
 	})
 }
 
+export function updateMessageCounter(conversation_id, user_name, isGroup){	
+	socket.emit("reset unread count", {
+		conversation_id : conversation_id,
+		user_name : user_name,
+		isGroup : isGroup
+	});
+}
+
 export function sendFriendRequestToSocket (user_uid, user_info){
 	socket.emit("friend request", {
 		user : user_uid,
@@ -46,7 +54,13 @@ export function sendFriendRequestToSocket (user_uid, user_info){
 }
 
 socket.on("new message", function(data){
-	let chatProfiles = updateContactProfiles(data.conversation_id, store.getState().user_profiles.users, data);
+	let chatProfiles;
+	if(store.getState().chat_profile.user.conversation_id === data.conversation_id){
+		chatProfiles = updateContactProfiles(data.conversation_id, store.getState().user_profiles.users, data, false);
+		updateMessageCounter(data.conversation_id, store.getState().user_info.user.user_name, !!store.getState().chat_profile.user.group_name);
+	}else{
+		chatProfiles = updateContactProfiles(data.conversation_id, store.getState().user_profiles.users, data, true)
+	}
 	store.dispatch(update_user_profiles(chatProfiles));
 	store.dispatch(append_message_to_chat(data.conversation_id, data))
 });
@@ -71,13 +85,4 @@ socket.on("disconnect", function(reason){
 		console.log("Creating chat room for group", room.user_uid);
 		socket.emit("join", room.user_uid);
 	});
-});
-
-socket.on('reconnecting', (attemptNumber) => {
-	console.log("socket reconnecting", attemptNumber);
-  });
-
-socket.on('reconnect_failed', () => {
-	console.log("socket reconnecting");
-
 });

@@ -3,6 +3,7 @@ import {connect} from "react-redux";
 import ContactsPanel from "../contacts-panel/ContactsPanel.js";
 import { fetchContacts, searchUser, current_chat_profile, updateUserRequest, clearSearchResults } from "../../actions/contactsActionCreator.js";
 import {fetch_chat_history} from "../../actions/fetchChatActionCreator.js";
+import {updateMessageCounter} from "../../models/client-socket.js";
 
 const ContactsPanelContainer = ({user_profiles, fetchContactList, searchUser, activeChatUser, user_profile, updateUserRequest, clearSearch}) => (
     <ContactsPanel user_profiles = {user_profiles} fetchContactList = {fetchContactList} searchUser={searchUser} activeChatUser={activeChatUser} user_profile={user_profile} updateUserRequest={updateUserRequest} clearSearch={clearSearch}/>
@@ -29,7 +30,10 @@ function mapDispatchToProps(dispatch, ownProps){
             dispatch(clearSearchResults());
         },
 
-        activeChatUser : function (chat_member, user) {
+        activeChatUser : function (chat_member, user, isGroup) {
+            if(chat_member.unread_count){
+                updateMessageCounter(chat_member.conversation_id, user.user_name, isGroup);
+            }
             dispatch(current_chat_profile(chat_member));
             dispatch(fetch_chat_history(chat_member.conversation_id, user.user_uid));
         },
