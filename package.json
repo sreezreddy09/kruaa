@@ -3,7 +3,9 @@
   "version": "1.0.0",
   "description": "Sample Node Application",
   "main": "index.js",
-  "node": "8.11.4",
+  "engines": {
+    "node": "8.11.4"
+  },
   "scripts": {
     "start": "node index.js",
     "prod": "./node_modules/.bin/gulp prod && npm start"
