@@ -42,19 +42,25 @@
 					clear : both;
 					padding : 6px;
 					margin : 4px;
-					text-align: left;
+					text-align: right;
 					font-family: "Roboto", sans-serif, Helvetica, Arial, sans-serif;
-					font-size: 13px;
+					font-size: 14px;
 					background-color: #93d7ff;
 					// border-radius: 5px;
 					color: black;
 					max-width : 350px;
 					word-wrap: normal;
+					&.is-only-emoji{
+						>span{
+							font-size : 40px;
+						}
+					}
 					span {
 						display: block;
 						padding: 6px;
 					}
 					small {
+						font-size: 12px;
 						padding : 2px 6px;
 						display: block;
 						float : right;
@@ -93,7 +99,7 @@
 					padding: 6px;
 					margin: 4px;
 					font-family: "Roboto", sans-serif, Helvetica, Arial, sans-serif;
-					font-size: 13px;
+					font-size: 14px;
 					background-color: aliceblue;
 					color: black;
 					max-width : 350px;
@@ -101,11 +107,17 @@
 						color : #6585ff;
 						font-size: 12px;
 					}
+					&.is-only-emoji{
+						>span{
+							font-size : 40px;
+						}
+					}
 					span {
 						display: block;
 						padding: 6px;
 					}
 					small {
+						font-size : 12px;
 						padding : 2px 6px; 
 						display: block;
 						float : left;

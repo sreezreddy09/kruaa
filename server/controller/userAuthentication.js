@@ -23,7 +23,8 @@ class UserAuth {
                     user_uid : data[0]["user_uid"],
                     user_name : data[0]["user_name"],
                     email_id : data[0]["email_id"],
-                    name : `${data[0]["first_name"]} ${data[0]["last_name"]}`
+                    name : `${data[0]["first_name"]} ${data[0]["last_name"]}`,
+                    admin : (data[0]["user_name"] === 'srikanth_reddy')?true:false
                 }
                 return user_record;
             }).catch((err) => {
@@ -39,7 +40,8 @@ class UserAuth {
                     user_uid : data[0]["user_uid"],
                     user_name : data[0]["user_name"],
                     email_id : data[0]["email_id"],
-                    name : `${data[0]["first_name"]} ${data[0]["last_name"]}`
+                    name : `${data[0]["first_name"]} ${data[0]["last_name"]}`,
+                    admin : (data[0]["user_name"] === 'srikanth_reddy')?true:false
                 }
                 return [user_record];
             });
@@ -62,6 +64,12 @@ class UserAuth {
             };
         }).catch((err) => {
             logger.log("error", "Error inserting user log on information to table", err);
+            if(err.code === "23505"){
+                let key;
+                if(err.constraint === 'userinfo_email_id_key') key = "Email id";
+                if(err.constraint === 'userinfo_user_name_key') key = "User name";
+                throw {reason : `${key} already exists`};
+            }
             throw {reason : "Error in creating user"};
         })
     }

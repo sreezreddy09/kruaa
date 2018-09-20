@@ -13,14 +13,13 @@ var ContactsPanel = React.createClass({
         this.props.fetchContactList(this.props.user_profile.user_name);        
     },
 
-    render : function (){ 
+    render : function (){
         var searchUserPanel = <div className="search-user-panel">
             <header className="search-user">
                 <input className="input-box" placeholder="Search" spellCheck="false" onChange={this._searchUser} ref="searchInput"/>
                 <i className = "fa fa-search" onClick={this._searchUser}> </i>
             </header>
             <div className="search-user-results">
-                
                 {
                     (this.props.user_profiles.loading)?(<ProgressBar/>):(
                         <ul className="users">
@@ -38,7 +37,7 @@ var ContactsPanel = React.createClass({
                     )
                 }
             </div>
-        </div>;
+        </div>;        
         return (
             <div className ="contacts-container">
                 <div className="contact-header">
@@ -72,7 +71,8 @@ var ContactsPanel = React.createClass({
                                                 </div>
                                             </li>)
                                         }.bind(this))
-                                    ): ""
+                                    ): <div className="no-items"> No recent conversations. 
+                                    <div>Use the icon above  to send request to friends.</div></div>
                                 }
                             </ul>
                         </div>
