@@ -4,6 +4,7 @@ export const USER_SIGNIN_FAILURE = "USER_SIGNIN_FAILURE";
 export const USER_SIGNON_SUCCESS = "USER_SIGNON_SUCCESS";
 export const USER_SIGNON_FAILURE = "USER_SIGNON_FAILURE";
 export const TOGGLE_SIGNON = "TOGGLE_SIGNON";
+export const USER_SIGNON_PENDING = "USER_SIGNON_PENDING";
 
 
 export function user_signin_success(user){
@@ -32,5 +33,10 @@ export function user_signon_failure(data){
 export function toggle_signon (){
     return {
         type : TOGGLE_SIGNON
+    }
+}
+export function user_signon_pending (){
+    return {
+        type : USER_SIGNON_PENDING
     }
 }

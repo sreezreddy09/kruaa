@@ -1,5 +1,6 @@
 var React = require("react");
 var LoginAPI = require("../../api/LoginAPI");
+var ProgressBar = require('../progressBar/ProgressBar.react');
 
 var LoginPage = React.createClass({
     getInitialState : function(){
@@ -18,7 +19,7 @@ var LoginPage = React.createClass({
                             {(this.props.user.error)?(<div className="error">{this.props.user.error}</div>):""}
                             <input type = "text" placeholder = "Username" ref="username"/>
                             <input type = "password" placeholder = "Password" ref="password" />
-                            <button className="submit" onClick={this.validateLogin}> LOGIN </button>
+                            <button className="submit" onClick={this.validateLogin}> <span className="button-text" >LOGIN</span></button>
                             <div className = "toggle-logon">
                                 <span>Not registered?</span> <span className="toggle" onClick={this.toggleLogOn}>Create an account</span>
                             </div>
@@ -32,7 +33,9 @@ var LoginPage = React.createClass({
                             <input type = "text" placeholder = "Email" ref= "email" />
                             <input type = "password" placeholder = "Password" ref= "password" />
                             <input type = "text" placeholder = "Key (*Contact Admin)" ref= "key" />
-                            <button className="submit" onClick={this.createNewUser}> CREATE </button>
+                            <button className={ "submit" + ((this.props.user.loading)?(" loading"):"")} onClick={(!this.props.user.loading)?(this.createNewUser) : "" }>{(!this.props.user.loading)?(<span className="button-text" >CREATE</span>):(
+                                <ProgressBar />
+                            )} </button>
                             <div className = "toggle-logon">
                                 <span>Already registered?</span> <span className="toggle" onClick={this.toggleLogOn}>Sign In</span>
                             </div>
@@ -86,6 +89,7 @@ var LoginPage = React.createClass({
                 password : this.refs.password.value,
                 key : (this.refs.key.value).toLowerCase()
             };
+            this.props.userSignonPending();
             LoginAPI.addUserwithLogOn(param).done(function(){
                 this.state.isLogin = !this.state.isLogin;
                 this.state.newUseradded = true;

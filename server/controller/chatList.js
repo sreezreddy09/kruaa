@@ -55,8 +55,11 @@ class chatList {
             });
 	}
 
-	FetchGroupChatInfo(chat_member, users, query){
-		let chat_users = users.filter((d) => d !== query);
+	FetchGroupChatInfo(chat_member, users, query, filterUser = true){
+		let chat_users = users.filter((d) => {
+			if(filterUser) return d !== query;
+			return true;
+		});
 		let search_query = '%' + query + '%';
 
 		return this.PostGresDriver.executeQuery({cql : FETCH_GROUP_CHAT_INFO_CQL, keys : [chat_users]})
@@ -69,7 +72,6 @@ class chatList {
 				user["user_name"] = d["user_name"];
 				user["name"] = `${d["first_name"]} ${d["last_name"]}`;
 				user["color"] = chat_colors[i]
-				user["unread_count"] = 0
 				return user;
 			})
 			delete chat_member["users_bond"];

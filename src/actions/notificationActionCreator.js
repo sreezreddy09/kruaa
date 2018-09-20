@@ -1,9 +1,10 @@
 export const UPDATE_APPROVAL_STATUS_SUCCESSFULL = "UPDATE_APPROVAL_STATUS_SUCCESSFULL";
 export const FETCH_REQUEST_APPROVALS = "FETCH_REQUEST_APPROVALS";
 export const FETCH_APPROVALS_PENDING = "FETCH_APPROVALS_PENDING";
+export const USER_SEARCH_SUCCESSFUL = "USER_SEARCH_SUCCESSFUL";
 
 import ContactsAPI from "../api/ContactsAPI";
- import {sendChatInfoToSocket} from "../models/client-socket";
+ import {sendChatInfoToSocket, CreateGroupWithSocket, UpdateGroupWithSocket} from "../models/client-socket";
 
 export function updateApprovalStatus (user, user_name, approve, approvalList){
 	return function (dispatch){
@@ -37,6 +38,43 @@ export function fetchApprovals (user_name){
 			}, function(err){
 				console.log(err);
 			})
+	}
+}
+
+export function searchGroupUsers (query, user_name, group_users){
+	return function(dispatch){
+		return ContactsAPI.searchGroupUsers(query, user_name)
+			.then(function(data){
+				group_users && group_users.forEach((group_user) => {
+					data.users.map((user) => {
+						if(user.user_uid === group_user){
+							user.isUser = true;
+						}
+					});
+				})
+				dispatch(userSearchSuccessful(data));
+			}, function(err){
+				console.log(err);
+			})
+	}
+}
+
+export function createGroupUsers (group_name, group_users){
+	return function(dispatch){
+		CreateGroupWithSocket(group_name, group_users);
+	}
+}
+
+export function updateGroupUsers (group_id, group_users, user_name, deleted_users){
+	return function (dispatch){
+		UpdateGroupWithSocket(group_id, group_users, user_name, deleted_users);
+	}
+}
+
+function userSearchSuccessful(data){
+	return {
+		type : USER_SEARCH_SUCCESSFUL,
+		payload : data
 	}
 }
 

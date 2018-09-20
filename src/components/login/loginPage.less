@@ -1,10 +1,11 @@
 body{
     .page-wrap{
-        background-image: url("./lib/images/background.jpg");
+        background-image: url("./lib/images/background7.jpg");
         background-position: center center;
         background-attachment: fixed;
         background-size: cover;
         height: 100vh;
+        overflow: scroll;
     }
 }
 .login-page {
@@ -45,18 +46,35 @@ body{
         }
 
         button {
-            font-family: "Roboto", sans-serif;
-            font-size: 14px;
             background-color: #6588E6;
-            padding : 15px;
             width : 100%;
+            padding : 15px;
             margin : 0 0 15px;
             box-sizing : border-box;
             border : 0;
             outline : 0;
-            color : #FFFFFF;
-            font-weight: lighter;
             cursor: pointer;
+            .button-text {
+                font-family: "Roboto", sans-serif;
+                font-size: 14px;
+                color : #FFFFFF;
+                font-weight: lighter;
+            }
+            &:hover{
+                box-shadow: 0 0 20px 0 rgba(0, 0, 0, 0.2);
+            }&:active{
+                background-color: rgb(224, 224, 224);
+                box-shadow: 0 4px 10px 0 rgba(0,0,0,0.2), 0 4px 20px 0 rgba(0,0,0,0.19);
+                transition: background-color 200ms ease-out;
+                color: #6588E6;
+            }
+            .loader {
+                position: relative;
+                left :10px;
+                span{
+                    background: white;
+                }
+            }
         }
         .error {
             font-family: "Roboto", sans-serif;
@@ -76,7 +94,5 @@ body{
             color : #6588E6;
             cursor : pointer;
         }
-
-
     }
 }

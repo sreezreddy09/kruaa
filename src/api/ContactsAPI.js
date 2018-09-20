@@ -29,6 +29,20 @@ function searchUser(value, user){
 	})
 }
 
+function searchGroupUsers(value, user){	
+	return new Promise(function(resolve, reject){
+		$.ajax({
+			url : "/api/users/group?q=" + value +"&user=" + user,
+			type : "GET",
+			dataType : "JSON"
+		}).done(function(data){
+			resolve({users : data});
+		}).fail(function(err){
+			console.log("Failed to search User", err);
+		})
+	})
+}
+
 function addUserRequest (chat_member, user){
 	let body = {
 		chatter_uid : chat_member.user_uid,
@@ -95,5 +109,6 @@ module.exports = {
 	searchUser : searchUser,
 	addUserRequest : addUserRequest,
 	fetchApprovals : fetchApprovals,
+	searchGroupUsers : searchGroupUsers,
 	updateApprovalStatus : updateApprovalStatus
 };

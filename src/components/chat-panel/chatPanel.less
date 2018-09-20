@@ -28,6 +28,9 @@
                 bottom: 118px;
                 top : 58px;
                 width : 100%;
+                &.emoji{
+                    bottom : 270px;
+                }
             }
             .chat-footer {
                 position: fixed;
@@ -35,6 +38,37 @@
                 height : 60px;
                 width: 55%;
                 background-color:  rgba(0, 0, 0, 0.1);
+                &.emoji {
+                    height: 220px;
+                }
+                .emoji-picker{
+                    position: relative;
+                    width: 99.9%;
+                    height: 200px;
+                    bottom: 0px;
+                    > nav{
+                        display : none;
+                    }
+                    .bar-wrapper{
+                        display : none;
+                    }
+                    .wrapper{
+                        .diversity-picker{
+                            display: none;
+                        }
+                        .emoji-list{
+                            >.emoji-category.flags{
+                                display: none;
+                            }
+                            >.emoji-category.symbols{
+                                display: none;
+                            }
+                        }
+                    }
+                    .emoji-list:not(.filter) .emoji-category{
+                        min-height: 0%;
+                    }
+                }
                 .emoji-menu {
                     position: relative;
                     display: inline-block;
@@ -52,7 +86,7 @@
                     margin: 10px;
                     padding: 5px;
                     font-family: "Roboto", sans-serif, Helvetica, Arial, sans-serif;
-                    font-size: 14px;
+                    font-size: 15px;
                     font-weight: 200;
                     line-height: 1.5;
                     background-color: white;
@@ -69,6 +103,14 @@
                     color : #6588E6;
                     cursor: pointer;
                 }
+            }
+            .landing-page{
+                background-image: url("./lib/images/bbrfgbb.jpg");
+                background-position: center center;
+                background-attachment: fixed;
+                background-size: fit;
+                height: 100vh;
+                overflow: scroll;
             }
         }
     }

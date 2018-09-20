@@ -1,10 +1,10 @@
 import React  from "react";
 import { connect } from "react-redux";
 import LoginPage from "./LoginPage.js";
-import {user_signin_success, user_signin_failure, user_signon_success, user_signon_failure, toggle_signon } from '../../actions/loginActionCreator';
+import {user_signin_success, user_signin_failure, user_signon_success, user_signon_failure, user_signon_pending, toggle_signon } from '../../actions/loginActionCreator';
 
-const LoginPageContainer = ({user, userSigninSuccess, userSigninFailure, userSignonSuccess, userSignonFailure, toggleSignOn})=>(
-    <LoginPage user={user} userSigninSuccess={userSigninSuccess} userSigninFailure={userSigninFailure} userSignonSuccess={userSignonSuccess} userSignonFailure={userSignonFailure} toggleSignOn={toggleSignOn} />
+const LoginPageContainer = ({user, userSigninSuccess, userSigninFailure, userSignonSuccess, userSignonFailure, userSignonPending, toggleSignOn})=>(
+    <LoginPage user={user} userSigninSuccess={userSigninSuccess} userSigninFailure={userSigninFailure} userSignonSuccess={userSignonSuccess} userSignonFailure={userSignonFailure} toggleSignOn={toggleSignOn} userSignonPending ={userSignonPending} />
 );
 function mapStateToProps(state, ownProps){
     return {
@@ -26,6 +26,9 @@ const mapDispatchToProps = function(dispatch, ownProps){
         },
         userSignonFailure : function (data){
             dispatch(user_signon_failure(data));
+        },
+        userSignonPending : function (){
+            dispatch(user_signon_pending());
         },
         toggleSignOn : function (){
             dispatch(toggle_signon());

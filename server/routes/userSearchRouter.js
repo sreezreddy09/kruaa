@@ -14,6 +14,15 @@ contactsRouter.use("/search", (req, res) => {
         logger.info("ERROR in searching user from DB", err);
         res.status(400).send(err);
     });
+});
+
+contactsRouter.use("/group", (req, res) => {
+    userSearchController.fetchGroupUsers(req.query.user).then((data) => {
+        res.send(data);
+    }).catch((err) => {
+        logger.info("ERROR in searching user from DB", err);
+        res.status(400).send(err);
+    });
 })
 
 module.exports = contactsRouter;
