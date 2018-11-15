@@ -132,11 +132,14 @@
 				width : 100%;
 				top : 55px;
 				bottom: 47px;
-				overflow-y: scroll;
+				overflow-y: hidden;
 				overflow-x: hidden;
 				background: #6588E6;
 				-webkit-animation : group-slide-out 2s linear;
 				animation : group-slide-out 0.4s linear;
+				&:hover{
+					overflow-y : overlay;
+				}
 				// .group-action-buttons{
 				// 	position: absolute;
 				// 	top : 15px;

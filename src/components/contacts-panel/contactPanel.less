@@ -44,9 +44,12 @@
                 top : 55px;
                 bottom: 47px;
                 width : 100%;
+                overflow-y: hidden;
                 // max-height: 100%;
-                overflow: overlay;
-                scroll-behavior: smooth;
+                &:hover{
+                    overflow-y : overlay;
+                    scroll-behavior: smooth;
+                }
                 .contacts-list{
                     margin: 0;
                     padding: 0;

@@ -1,3 +1,17 @@
+html{
+    ::-webkit-scrollbar {
+        width: 6px;
+    } 
+    /* Handle */
+    ::-webkit-scrollbar-thumb {
+        background: rgba(0, 0, 0, 0.3); 
+        border-radius : 10px;
+    }
+    /* Handle on hover */
+    ::-webkit-scrollbar-thumb:hover {
+        background: rgba(0, 0, 0, 0.5);
+    }
+}
 
 body {
     margin: 0;
@@ -38,12 +52,11 @@ body {
                 }
             }
             .logo-nav-left{
-                font-family: monospace;
-                font-weight: 800;
-                font-size : 28px;
-                font-size-adjust: 1;
-                float : left;
-                margin : 10px 40px;
+                img {
+                    float : left;
+                    margin-left : 60px;
+                    height : 40px;
+                }
             }
 
         }

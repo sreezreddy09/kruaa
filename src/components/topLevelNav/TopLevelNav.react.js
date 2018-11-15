@@ -9,7 +9,7 @@ var TopLevelNav = React.createClass({
         return (
             <div className = "top-level-nav">
                 <div className="logo-nav-left">
-                    <span className="logo-text"> KRUAA </span>
+                    <img className="logo-png" src="./lib/images/kruaa-logo.png"/>
                 </div>
                 <UserMenu {...this.props}/>
             </div>
