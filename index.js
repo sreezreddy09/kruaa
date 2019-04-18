@@ -46,6 +46,9 @@ app.use("/api", require("./server/routes/Routes.Main"));
 
 
 //Routes all the server requests to the index page
+app.get("/service-worker.js", (request, response) => {
+    response.sendFile(__dirname +"/dist/service-worker.js");
+});
 app.use('*', (request, response) => {
     response.sendFile(__dirname + "/dist/index.html");
 });

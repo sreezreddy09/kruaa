@@ -11,4 +11,6 @@ MainRouter.use("/chat-history", require("./chatHistoryRouter"));
 
 MainRouter.use("/request", require("./userRequestRouter"));
 
+MainRouter.use("/subscription", require("./subscriptionRouter"));
+
 module.exports = MainRouter;

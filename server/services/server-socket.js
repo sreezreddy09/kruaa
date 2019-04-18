@@ -4,6 +4,7 @@ const logger = require("../services/logger");
 const chatHistoryController = require("../controller/chatHistory");
 const userSearchController = require("../controller/userSearch.js");
 const chatListController = require("../controller/chatList");
+const subscriptionController = require('../controller/subscription');
 
 module.exports.listen = (app) => {
 
@@ -24,6 +25,7 @@ module.exports.listen = (app) => {
 
 		socket.on("new message", (data) => {
 			socket.to(data.user).emit('new message', data.message);
+			subscriptionController.notifyUsers(data.message);
 			chatHistoryController.appendMessageToDB({...data.message, unread_status : 'true'});
 		})
 
