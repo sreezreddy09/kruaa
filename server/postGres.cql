@@ -48,5 +48,13 @@ CREATE TABLE messages (
 	attachment_thumb_url VARCHAR(50) NOT NULL
 )
 
+// subscription table will store user's notification authentication
+
+CREATE TABLE subscription (
+	user_name VARCHAR(50) UNIQUE NOT NULL,
+	subscription VARCHAR(50),
+	PRIMARY KEY (user_name)
+)
+
 
 

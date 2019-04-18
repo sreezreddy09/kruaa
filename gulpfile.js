@@ -19,6 +19,11 @@ gulp.task("build:LibFiles", function(){
         .pipe(gulp.dest("./dist/lib"));
 });
 
+gulp.task("build:service-worker", function() {
+    gulp.src("src/service-worker.js")
+        .pipe(gulp.dest("./dist"));
+})
+
 gulp.task("build:dev_webpack", function(done){
     var excuteCB = true;
     var devConfig = Object.create(webpackConfig);
@@ -66,13 +71,15 @@ gulp.task("clean", function(){
 
 gulp.task('watch', function(){
     gulp.watch("src/**/*.less", ["build:LESS"]);
+    gulp.watch("src/service-worker.js", ["build:service-worker"]);
 });
 
-gulp.task("default", ["build:LESS", "build:LibFiles", "build:dev_webpack", 'watch']);
+gulp.task("default", ["build:LESS", "build:LibFiles", "build:service-worker", "build:dev_webpack", 'watch']);
 
 gulp.task("prod", ["clean"], function(done){
     gulp.run("build:LESS");
     gulp.run("build:prod_webpack");
     gulp.run("build:LibFiles");
+    gulp.run("build:service-worker");
     done();
 });

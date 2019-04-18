@@ -8,6 +8,7 @@ import MainDashboard from "./components/dashboard/MainDashboard.container";
 
 export const store = configureStore();
 window.onload = function(){
+    initServiceWorker()
     ReactDOM.render((
         <Provider store = {store}>
             <BrowserRouter>
@@ -23,3 +24,15 @@ window.onload = function(){
         </Provider>
     ), document.getElementById("app"));
 };
+
+function initServiceWorker () {
+    if (!('serviceWorker' in navigator) || !('PushManager' in window)) {
+        return;
+    }
+
+    navigator.serviceWorker.register("./service-worker.js").then((swRegistration) => {
+        console.log("Successfully registered service-worker", Notification.permission);
+    }).catch((err) => {
+        console.log("Failed to register the service worker", err);
+    })
+}
